@@ -15,7 +15,7 @@ let player2 = new Tone.GrainPlayer({
 fetch('../data/csv/water.csv')
   .then(response => response.text())
   .then((data) => {
-  csvData = $.csv.toArrays(data));
+  csvData = $.csv.toArrays(data);
 })
 
 $(document).ready(function(){
