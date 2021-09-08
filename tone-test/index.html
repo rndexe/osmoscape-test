@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+	<title>Tone example</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<script src="libs/Tone.js"></script>
+</head>
+<body>
+    <button id="play">Play</button>
+    <br>
+    <input type ="range" name="volume" min="-12" max="12" step= "1" value="0" id="volumeCtrl">
+	<label for="volume">Volume</label>
+    <br>
+    <input type ="range" name="grainsize" min="0.01" max="0.5" value="0.01" step="0.01" id="grainCtrl">
+	<label for="grainsize">Grain Size</label>
+    <br>
+    <input type ="range" name="overlap" min="0.01" max="0.2" value="0.01" step="0.01" id="overlapCtrl">
+	<label for="overlap">Overlap</label>
+    <br>
+    <input type ="range" name="detune" min="-1200" max="1200" value="0" step="100" id="detuneCtrl">
+	<label for="detune">Detune</label>
+    <br>
+    <input type ="range" name="reverbwet" min="0" max="1" value="0.5" step="0.1" id="reverbwetCtrl">
+	<label for="reverbwet">Reverb wetness</label>
+    <br>
+    <input type ="range" name="reverbdecay" min="0.1" max="4" value="1" step="0.1" id="reverbdecayCtrl">
+	<label for="reverbdecay">Reverb Decay</label>
+    <br>
+    <input type ="range" name="reverbpredelay" min="0" max="0.1" value="0" step="0.01" id="reverbpredelayCtrl">
+	<label for="reverbdecay">Reverb preDelay</label>
+    <br>
+    <input type ="range" name="playbackrate" min="0.001" max="2" value="1" step="0.1" id="playbackrateCtrl">
+	<label for="playbackrate">Playback Rate</label>
+
+    <script type="text/javascript" src="tone-test.js">
+	</script>
+	
+</body>
+</html>
