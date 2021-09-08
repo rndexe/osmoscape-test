@@ -1,12 +1,12 @@
 let player = new Tone.Player({
-    url : "/data/audio/tracks/Baseline_1.mp3",
+    url : "../data/audio/tracks/Baseline_1.mp3",
     loop : true,
     fadeOut: 2,
     fadeIn: 2,
 }).toDestination();
 let csvData;
 let player2 = new Tone.GrainPlayer({
-    url : "/data/audio/loops/1.mp3",
+    url : "../data/audio/loops/1.mp3",
     loop : true,
     grainSize : 0.1,
     overlap : 0.05,
@@ -16,6 +16,7 @@ fetch('../data/csv/water.csv')
   .then(response => response.text())
   .then((data) => {
   csvData = $.csv.toArrays(data);
+    console.log(csvData);
 })
 
 $(document).ready(function(){
