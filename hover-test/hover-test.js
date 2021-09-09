@@ -1,16 +1,15 @@
-let player = new Tone.Player({
+let csvData;
+const player = new Tone.Player({
     url : "../data/audio/tracks/Baseline_1.mp3",
     loop : true,
     fadeOut: 2,
     fadeIn: 2,
 }).toDestination();
-let csvData;
-let player2 = new Tone.GrainPlayer({
+const split = new Tone.MultibandSplit().mid.toDestination();
+const player2 = new Tone.Player({
     url : "../data/audio/loops/1.mp3",
     loop : true,
-    grainSize : 0.1,
-    overlap : 0.05,
-}).toDestination();
+}).connect(split);
 
 fetch('../data/csv/interaction-data.json')
   .then(response => response.json())
