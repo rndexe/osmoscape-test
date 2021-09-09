@@ -12,11 +12,11 @@ let player2 = new Tone.GrainPlayer({
     overlap : 0.05,
 }).toDestination();
 
-fetch('../data/csv/water.csv')
-  .then(response => response.text())
+fetch('../data/csv/interaction-data.json')
+  .then(response => response.json())
   .then((data) => {
-  csvData = $.csv.toArrays(data);
-    console.log(csvData);
+    console.log(data);
+    csvData = data;
 })
 
 $(document).ready(function(){
