@@ -64,8 +64,8 @@ $(document).ready(function(){
 
     function setBandSplitParameters() {
         split.set({
-            lowFrequency : csvData.lowfreq[currentPos.x],
-            highFrequency : csvData.highfreq[currentPos.y],
+            lowFrequency : csvData.lowfreq[currentPos.y],
+            highFrequency : csvData.highfreq[currentPos.x],
             Q : csvData.Q[qPos],
         })
         console.log(split.get().lowFrequency)
