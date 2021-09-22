@@ -16,7 +16,7 @@ split.high.toDestination();
 const player2 = new Tone.Player({
     url : "../data/audio/loops/1.mp3",
     loop : true,
-});
+}).connect(split);
 
 fetch('../data/csv/interaction-data.json')
     .then(response => response.json())
