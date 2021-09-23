@@ -11,7 +11,7 @@ const player = new Tone.Player({
 
 const split = new Tone.MultibandSplit();
 split.low.toDestination();
-split.high.toDestination();
+//split.high.toDestination();
 
 const player2 = new Tone.Player({
     url : "../data/audio/loops/1.mp3",

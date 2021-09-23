@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Osmoscape molecule</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <script src="../tone-test/libs/Tone.js"></script>
+        <script src="https://unpkg.com/interactjs@1.10.11/dist/interact.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <button>Play</button>
+        <div class="legend">
+            <div class="controls">
+                <label for="volume">Volume</label>
+                <input type ="range" name="volume" min="-12" max="12" step= "1" value="0" id="volumeCtrl">
+                <label for="decayMin">decay min (s)</label>
+                <input type ="number" name="decayMin" value="1" id="decayMin">
+                <label for="decayMax">decay max (s)</label>
+                <input type ="number" name="decayMax" value="5" id="decayMax">
+            </div>
+                <img class="draggable" src="../data/images/osmo_icon.png"/>
+            <img id="mask" src="../data/images/0_human_dna_legend.svg"/>
+            <div class="debug">
+                <p>
+                   decay : <span id="decay"></span>
+                </p>
+                <p>
+                   wet.value : <span id="wet"></span>
+                </p>
+            </div>
+        </div>
+        <script type="text/javascript" src="molecule-test.js">
+        </script>
+
+    </body>
+</html>
