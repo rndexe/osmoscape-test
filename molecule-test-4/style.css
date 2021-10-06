@@ -1,0 +1,44 @@
+body {
+    display: flex;
+    margin: 0;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #b5ced5;
+    overflow: hidden;
+}
+
+particle {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#mask {
+ height:80vh;
+}
+img {
+ height:30vh;
+}
+.draggable {
+    position: relative;
+    left:0;
+    top:0;
+    height:15vh;
+}
+.controls {
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.debug {
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
