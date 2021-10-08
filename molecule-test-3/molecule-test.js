@@ -37,6 +37,7 @@ $(document).ready(function(){
             player.detune = ((position.x/maxPosition.x)*100-50);
             reverb.wet.value = Math.min(1,Math.abs(position.y/maxPosition.y)*0.5+0.5);
             player.grainSize = (position.y/maxPosition.y)*1.9+0.1;
+            player.loopStart = Math.abs((position.y/maxPosition.y)*10);
             delay.delayTime.value = (position.avg/maxPosition.avg)*0.6;
 
             console.log( (position.avg/maxPosition.avg)*0.6);
@@ -46,6 +47,7 @@ $(document).ready(function(){
             $("#delayTime").text(delay.delayTime.value.toFixed(2));
             $("#detune").text(player.detune.toFixed(2));
             $("#grainSize").text(player.grainSize.toFixed(2));
+            $("#loopstart").text(player.loopStart.toFixed(2));
         })
     }
     );
