@@ -5,16 +5,16 @@ const context = new Tone.Context({ latencyHint: "interactive" });
 Tone.setContext(context);
 const reverb = new Tone.Reverb();
 const delay = new Tone.Delay();
-const player = new Tone.Player({
+const player = new Tone.GrainPlayer({
     url : "../data/audio/loops/0.mp3",
     loop : true,
 });
 player.chain(delay,reverb,Tone.getDestination());
-
 $(document).ready(function(){
 
     $(".legend").hide();
     $("button").click (function() {
+        Tone.start();
         player.start();
         $("button").hide();
         $(".legend").show();
@@ -34,14 +34,18 @@ $(document).ready(function(){
             position.avg = (position.x + position.y)/2;
 
             reverb.decay = Math.abs((position.x/maxPosition.x)*4+1);
+            player.detune = ((position.x/maxPosition.x)*100-50);
             reverb.wet.value = Math.min(1,Math.abs(position.y/maxPosition.y)*0.5+0.5);
-   //         delay.delayTime.value = (position.avg/maxPosition.avg)*0.6;
+            player.grainSize = (position.y/maxPosition.y)*1.9+0.1;
+            delay.delayTime.value = (position.avg/maxPosition.avg)*0.6;
 
             console.log( (position.avg/maxPosition.avg)*0.6);
 
             $("#decay").text(reverb.decay.toFixed(2));
             $("#wet").text(reverb.wet.value.toFixed(2));
             $("#delayTime").text(delay.delayTime.value.toFixed(2));
+            $("#detune").text(player.detune.toFixed(2));
+            $("#grainSize").text(player.grainSize.toFixed(2));
         })
     }
     );
