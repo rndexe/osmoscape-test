@@ -1,11 +1,11 @@
 //const vol = new Tone.Volume().toDestination();
 const reverb = new Tone.Reverb().toDestination();
-const player = new Tone.GrainPlayer ({
+const player = new Tone.Player ({
 
     url : "../data/audio/loops/4.mp3",
     loop: true,
-    grainSize : 0.1,
-    overlap : 0.05,
+    //grainSize : 0.1,
+    //overlap : 0.05,
 }).connect(reverb);
 
 const playButton = document.getElementById('play');
