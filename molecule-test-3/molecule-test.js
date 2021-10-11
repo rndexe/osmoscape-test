@@ -13,7 +13,7 @@ const player = new Tone.GrainPlayer({
     url : "/data/audio/tracks/Baseline_2.mp3",
     loop : true,
 });
-player.chain(delay,reverb,Tone.getDestination());
+player.chain(delay,vibrato,pitchshift,Tone.getDestination());
 $(document).ready(function(){
 
     $(".legend").hide();
