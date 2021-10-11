@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+    overflow: hidden;
+}
+
+#hitArea {
+ height:50vh;
+ width:50vw;
+ background-color: #EFEFEF
+}
+.draggable {
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:15vh;
+}
+
+.left {
+    left: 0;
+}
+.right {
+    right: 0;
+}
+
+.top {
+    top: 0;
+}
+.absolute {
+
+    color: white;
+    position: absolute;
+}
+
