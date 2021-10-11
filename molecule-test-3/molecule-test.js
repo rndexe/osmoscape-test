@@ -1,6 +1,6 @@
 const maxPosition = { x : 0, y : 0, avg : 0}
 const position = { x : 0, y : 0 }
-const context = new Tone.Context({ lookAhead: 0.1, latencyHint: "interactive" });
+const context = new Tone.Context({ latencyHint: "balanced"});
 
 
 // set this context as the global Context
@@ -10,10 +10,10 @@ const delay = new Tone.Delay();
 const vibrato = new Tone.Vibrato();
 const pitch = new Tone.PitchShift();
 const player = new Tone.GrainPlayer({
-    url : "/data/audio/loops/0.mp3",
+    url : "/data/audio/tracks/Baseline_2.mp3",
     loop : true,
 });
-player.chain(vibrato,delay,reverb,Tone.getDestination());
+player.chain(delay,reverb,Tone.getDestination());
 $(document).ready(function(){
 
     $(".legend").hide();
@@ -30,7 +30,7 @@ $(document).ready(function(){
     let molecule = Draggable.create(".draggable",{
         bounds: "#mask",
         type: "x,y",
-        onDrag: throttled(100,function() {
+        onDrag: throttled(150,function() {
 
 
             position.y = ($(".draggable").offset().top - $("#mask").offset().top)
@@ -38,17 +38,20 @@ $(document).ready(function(){
             position.avg = (position.x + position.y)/2;
 
             reverb.decay = Math.abs((position.x/maxPosition.x)*4+1);
-            player.detune = ((position.x/maxPosition.x)*100-50);
-            vibrato.frequency.value = Math.abs((position.y/maxPosition.y)*10);
-            vibrato.depth.value =  (position.x/maxPosition.x)*0.5+0.5;
+            reverb.wet.rampTo(Math.min(1,Math.abs(position.y/maxPosition.y)*0.5+0.5),0,1);
+            
+            delay.delayTime.rampTo(Math.abs(position.avg/maxPosition.avg)*0.6,0.1);
+            
+            vibrato.frequency.rampTo(Math.abs((position.y/maxPosition.y)*10),0.1);
+            vibrato.depth.rampTo((Math.min(1,Math.abs(position.x/maxPosition.x))*0.5+0.5),0.1);
+            
             pitch.pitch = ((position.y/maxPosition.y)*12-6);
-            reverb.wet.value = Math.min(1,Math.abs(position.y/maxPosition.y)*0.5+0.5);
-            player.grainSize = (position.y/maxPosition.y)*3.9+0.1;
+            
+            player.detune = ((position.x/maxPosition.x)*100-50);
+            player.grainSize= (position.y/maxPosition.y)*3.9+0.1;
             player.loopStart = Math.abs((position.y/maxPosition.y)*5);
             player.loopEnd = Math.abs((position.x/maxPosition.x)*10+5);
-            delay.delayTime.value = (position.avg/maxPosition.avg)*0.6;
-``
-            console.log( (position.avg/maxPosition.avg)*0.6);
+//            console.log( (position.avg/maxPosition.avg)*0.6);
 
             $("#decay").text(reverb.decay.toFixed(2));
             $("#wet").text(reverb.wet.value.toFixed(2));
