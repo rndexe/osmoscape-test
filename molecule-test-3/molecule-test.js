@@ -10,10 +10,10 @@ const delay = new Tone.Delay();
 const vibrato = new Tone.Vibrato();
 const pitch = new Tone.PitchShift();
 const player = new Tone.GrainPlayer({
-    url : "/data/audio/tracks/Baseline_2.mp3",
+    url : "../data/audio/tracks/Baseline_2.mp3",
     loop : true,
 });
-player.chain(delay,vibrato,pitchshift,Tone.getDestination());
+player.chain(delay,vibrato,pitch,Tone.getDestination());
 $(document).ready(function(){
 
     $(".legend").hide();
