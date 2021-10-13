@@ -49,6 +49,7 @@ $(document).ready(function(){
         $(".legend").show();
 
         setMaxPosition();
+        getEffectChainFromInput();
     });
 
     let molecule = Draggable.create(".draggable",{
@@ -114,6 +115,9 @@ $(document).ready(function(){
         grainplayer.restart();
         player.restart();
     });
+    $('#ec').change(function() {
+        getEffectChainFromInput();
+    });
 });
 
 function init() {
@@ -176,10 +180,25 @@ function getNormalizedPosition() {
     return normalizedPosition;
 }
 
+const effects = {
+
+    "delay" : delay,
+    "reverb" : reverb,
+    "vibrato" : vibrato,
+    "pitchshift" : pitchshift,
+
+}
 function getEffectChainFromInput() {
     
-    console.log($("#ec").val())
-
+    const effectNameArray = $("#ec").val().split(',');
+    const effectArray = effectNameArray.map(i => effects[i])
+    
+    grainplayer.connect(effectArray[0]);
+    for (let i = 0; i < effectArray.length-1; i++) {
+        console.log(effectArray[i].name,"connected to",effectArray[i+1].name);
+        effectArray[i].connect(effectArray[i+1])
+    }
+    effectArray[effectArray.length-1].connect(crossfade.b);
 }
 
 function throttled(delay, fn) {
@@ -194,11 +213,3 @@ function throttled(delay, fn) {
     }
 }
 
-const effects = {
-
-    "delay" : delay,
-    "reverb" : reverb,
-    "vibrato" : vibrato,
-    "pitchshift" : pitchshift,
-
-}
