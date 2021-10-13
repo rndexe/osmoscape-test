@@ -27,7 +27,7 @@ const crossfade = new Tone.CrossFade({
 const reverb = new Tone.Reverb();
 const delay = new Tone.Delay();
 const vibrato = new Tone.Vibrato();
-const pitch = new Tone.PitchShift();
+const pitchshift = new Tone.PitchShift();
 const grainplayer = new Tone.GrainPlayer({
     url : "/data/audio/loops/-1.mp3",
     loop : true,
@@ -36,7 +36,7 @@ const player = new Tone.Player({
     url : "/data/audio/loops/-1.mp3",
     loop : true,
 }).connect(crossfade.a);
-grainplayer.chain(vibrato,delay,crossfade.b);
+//grainplayer.chain(delay,vibrato,pitchshift,crossfade.b);
 
 $(document).ready(function(){
 
@@ -81,7 +81,7 @@ $(document).ready(function(){
                     ($("#vdmx").val()-$("#vdmn").val())+$("#vdmn").val()*1
                     ,0.1);
 
-                pitch.pitch = position.y*
+                pitchshift.pitch = position.y*
                     ($("#pmx").val()-$("#pmn").val())+$("#pmn").val()*1
 
                 grainplayer.detune = position.x *
@@ -102,7 +102,7 @@ $(document).ready(function(){
                 $("#loopend").text(grainplayer.loopEnd.toFixed(2));
                 $("#frequency").text(vibrato.frequency.value.toFixed(2));
                 $("#depth").text(vibrato.depth.value.toFixed(2));
-                $("#pitch").text(pitch.pitch.toFixed(2));
+                $("#pitch").text(pitchshift.pitch.toFixed(2));
             }
         })
     }
@@ -175,6 +175,13 @@ function getNormalizedPosition() {
     normalizedPosition.avg = Math.min(1,Math.abs(position.avg/maxPosition.avg));
     return normalizedPosition;
 }
+
+function getEffectChainFromInput() {
+    
+    console.log($("#ec").val())
+
+}
+
 function throttled(delay, fn) {
     let lastCall = 0;
     return function (...args) {
@@ -187,4 +194,11 @@ function throttled(delay, fn) {
     }
 }
 
+const effects = {
 
+    "delay" : delay,
+    "reverb" : reverb,
+    "vibrato" : vibrato,
+    "pitchshift" : pitchshift,
+
+}
