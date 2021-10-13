@@ -18,7 +18,7 @@ const buffers = new Tone.ToneAudioBuffers({
         $("button").show();
         console.log("loaded");
     },
-    baseUrl: "/data/audio/loops/"
+    baseUrl: "../data/audio/loops/"
 });
 
 const crossfade = new Tone.CrossFade({
@@ -29,11 +29,11 @@ const delay = new Tone.Delay();
 const vibrato = new Tone.Vibrato();
 const pitchshift = new Tone.PitchShift();
 const grainplayer = new Tone.GrainPlayer({
-    url : "/data/audio/loops/-1.mp3",
+    url : "../data/audio/loops/-1.mp3",
     loop : true,
 });
 const player = new Tone.Player({
-    url : "/data/audio/loops/-1.mp3",
+    url : "../data/audio/loops/-1.mp3",
     loop : true,
 }).connect(crossfade.a);
 //grainplayer.chain(delay,vibrato,pitchshift,crossfade.b);
