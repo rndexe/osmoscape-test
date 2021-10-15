@@ -117,7 +117,7 @@ moleculeContainer.on('pointerdown', onDragStart)
 //moleculeContainer.pivot.x = moleculeContainer.width / 2;
 //moleculeContainer.pivot.y = moleculeContainer.height / 2;
 //legend.anchor.set(0.5);
-legend.scale.set(1.2);
+legend.scale.set(1.5);
 legend.interactive = true;
 //legend.hitArea = new PIXI.Circle(0,-30,150)
 moleculeContainer.x = app.screen.width / 2;
