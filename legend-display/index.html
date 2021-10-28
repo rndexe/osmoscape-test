@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="../libs/pixi.min.js"></script>
+        <script src="../libs/jquery-3.6.0.js"></script>
+        <script src="../libs/hitarea-shapes.min.js"></script>
+        <link rel="icon" href="../data/images/osmo_icon.png" type="image/x-icon" />
+
+    </head>
+    <body>
+        <div class="absolute">
+            <input type="number" value="0" id="m" size="3">
+            <p>Title</p>
+        </div>
+        <script src="legend-display.js"></script>
+    </body>
+    <style>
+    body {
+        margin:0;
+        padding:0;
+        overflow:hidden;
+    }
+
+    canvas {
+        display:block;
+    }
+    .absolute {
+        position : absolute;
+        top : 0;
+        left : 0;
+    }
+    </style>
+</html>

@@ -21,7 +21,6 @@ class Sounds {
     }
     
     createEffectChain(effectNameArray) {
-        
         const effectArray = effectNameArray.map(i => effects.effectnames[i])
         this.grainplayer.connect(effectArray[0]);
         for (let i = 0; i < effectArray.length-1; i++) {
@@ -38,8 +37,9 @@ class Effects {
     constructor() {
         this.delay = new Tone.Delay();
         this.pitchshift = new Tone.PitchShift();
-        this.vibrato = new Tone.Vibrato();
-
+        this.vibrato = new Tone.Vibrato({
+            frequency: 10;
+        });
         this.effectnames = {
 
             "delay" : this.delay,
