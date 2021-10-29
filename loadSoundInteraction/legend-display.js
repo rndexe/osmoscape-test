@@ -54,8 +54,11 @@ class Molecule {
             this.y = newPosition.y;
 //            const local = graphics.toLocal(newPosition)
 //            console.log("global",newPosition)
-            if(soundareas.currentArea.containsPoint(new PIXI.Point(newPosition.x,newPosition.y))) {
-            console.log("inside",newPosition)
+            soundeffects.crossfade.fade.rampTo(0,0.02)
+            if(soundareas.currentArea.containsPoint(newPosition)) {
+            //console.log("inside",newPosition)
+                soundeffects.crossfade.fade.rampTo(1,0.02)
+
             }
         }
     }
@@ -65,14 +68,36 @@ class SoundEffects {
     
     constructor() {
         
-        this.crossfade = new Tone.CrossFade({
-            fade : 0
-        }).toDestination();
+        this.context = new Tone.Context({ latencyHint: "balanced"});
+        Tone.setContext(this.context);
+        this.crossfade = new Tone.CrossFade({fade : 0});
+        this.player = new Tone.Player({loop : true});
+        this.grainplayer = new Tone.GrainPlayer({loop : true});
+        this.pitchshift = new Tone.PitchShift();
+        this.vibrato = new Tone.Vibrato();
+        this.delay = new Tone.Delay();
 
-        this.grainplayer = new Tone.GrainPlayer({
-            loop : true,
-        })
+        this.makeEffectChain();
+    }
 
+    makeEffectChain() {
+
+        this.player.connect(this.crossfade.a)
+        
+        this.grainplayer.connect(this.delay)
+        this.delay.connect(this.vibrato);
+        this.vibrato.connect(this.pitchshift);
+        this.pitchshift.connect(this.crossfade.b);
+        
+        this.crossfade.connect(Tone.getDestination());
+
+    }
+    setNewBuffer(num) {
+        this.grainplayer.buffer = buffers.get(num); 
+        this.player.buffer = buffers.get(num);
+
+        this.player.start();
+        this.grainplayer.start();
     }
 
 }
@@ -107,14 +132,18 @@ class SoundInteractionArea {
     setNewPosition(num, newx, newy) {
         this.areas[num].x = newx;
         this.areas[num].y = newy;
-        console.log("Position:",this.areas[num].getBounds());
+   //     console.log("Position:",this.areas[num].getBounds());
     }
+
     loadNew(num) {
 
         let soundArea = JSON.parse(mergedSoundAreas[num]);
-        let rect = soundArea.shapes[0][0].shape;
-        let shapeArray = soundArea.shapes[0];
+        //let rect = soundArea.shapes[0][0].shape;
+        let shapeArray = soundArea.shapes.default;
+            console.log(shapeArray)
         if (datasets[num].rect === "true") {
+            let rect = shapeArray[0].shape;
+            console.log(rect)
             this.areas[num] = new PIXI.Graphics()
                 .beginFill(0xFFA500,0.2)
                 .lineStyle(1, 0xFF0000)
@@ -143,13 +172,13 @@ class SoundInteractionArea {
         //    graphics.hitArea = graphics;
         //app.stage.addChild(graphics)
 
-        this.setInitialPosition(num); 
     }
 
 }
 
 const molecule = new Molecule();
 const soundareas = new SoundInteractionArea();
+const soundeffects = new SoundEffects();
 let mergedSoundURL = '../data/mergedSoundAreas.json';
 let dataURL = '../data/dataSummary.json';
 let buffers = {};
@@ -178,20 +207,20 @@ $(document).ready(function() {
 });
 
 $("#m").on("change", function() {
-    console.log($(this).val());
 
     let i = ($(this).val());
     if(i in datasets) {
-        console.log(datasets[i].title)
+        console.log(i,datasets[i].title)
         app.stage.removeChildren();
         $("p").text(datasets[i].title);
         soundareas.setNew(i);
-        console.log(soundareas)
+        soundeffects.setNewBuffer(i);
+        //console.log(soundareas)
         app.stage.addChild(soundareas.currentArea)
         //loadSoundInteractionArea(i)
         app.stage.addChild(molecule.moleculeContainer);
+        
     } else {
-
         $("p").text("No dataset for that id");
     }
 });
@@ -206,10 +235,27 @@ function loadBuffers() {
             "8": "8.mp3",
             "9": "9.mp3",
             "11": "11.mp3",
+            "14": "14.mp3",
+            "15": "15.mp3",
+            "16": "16.mp3",
+            "32": "32.mp3",
+            "36": "36.mp3",
+            "38": "38.mp3",
+            "44": "44.mp3",
+            "45": "45.mp3",
+            "50": "50.mp3",
+            "53": "53.mp3",
+            "55": "55.mp3",
+            "63": "63.mp3",
+            "48a": "48.mp3",
         },
-        onload: () => {
+        onload: async () => {
             console.log("Sound loops loaded");
-            Tone.start();
+            $("#p").text("Loaded");
+            $("#p").prop("disabled", true);
+
+            await Tone.start();
+            console.log("Context started");
         },
         baseUrl: "../data/audio/loops/"
     });

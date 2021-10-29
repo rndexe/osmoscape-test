@@ -111,6 +111,7 @@
     "desc": "The sea surface temperature is a measure of the energy of the molecules at the ocean surface, that is, the water temperature of the ocean surface. Measuring this helps in understanding the interaction between the sea surface and the layers of atmosphere above it, as it is this interaction that regulates the climate. A global study using satellite data and historical records to show that global sea surface temperatures have shown a steady rise between 1850 and 2018. The increase has been seen after the 1900s, which is the beginning of the industrial era. The ocean is a massive sink of carbon dioxide, which means that it absorbs the carbon dioxide from various sources as well as the heat radiated back to the earth from the greenhouse gases. The sound is represented by recordings of boiling water combined with field recordings of a coral reef.",
     "legendpath": "../../assets/data/legends/08_global sea surface temp-legend-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/08_global sea surface temp_mask-01.svg",
+    "rect": "true",
     "audiofile": "../../assets/audio/loops/8.mp3"
   },
   "9": {
@@ -175,6 +176,7 @@
     "desc": "Ten datasets of ice cores from different parts of the world were analysed to measure the carbon concentration trapped in the cores. Records were obtained from 800,000BC till 2015. The concentration have varied to a maximum of 300 parts per million(ppm). If we observe the trend after 1900, it shows that the carbon dioxide concentrations have been steadily rising, and for the first time in earth’s history they have crossed the 400 ppm levels. The sound is represented by a binaural recording of ice and a field recording of Vostok, Antarctica. It is manipulated to create 6 discrete layers of sounds to represent Carbon, the atomic number of which is 6.",
     "legendpath": "../../assets/data/legends/14 CO2 conc in ice core sample_legend-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/14 CO2 conc in ice core sample_legend_mask-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 3467.415000000002,
@@ -192,6 +194,7 @@
     "desc": "Researchers at the Institute of Tibetan Plateau Research in China conducted a study of ice cores from five different locations of the Tibetan Plateau, revealing the presence of black soot deposits. Black soot is formed from the incomplete combustion of fossil fuel. It gets transported by wind, mixes with rainwater and snow, and settles on glaciers. This leads to darkening of the surface of the glacier. The glaciers being white, have high albedo. This means they are able to reflect back most of the sunlight without absorbing it. Due to the presence of soot, they absorb sunlight and reduce the reflecting capacity of the glacier.This soot then contributes to the melting of the surface of the glacier. The soot received in the Tibetan glaciers in this study is mostly from Europe and the Middle East in the past. The sound is represented by field recordings of an Indian farmers burning their fields, combined with recordings of a glacier in the Karakoram.",
     "legendpath": "../../assets/data/legends/15 Black carbon annual data_legend-01.svg",
     "maskpath": "../../assets/data/legends/15 Black carbon annual data_mask-01.svg",
+    "rect": "true",
     "audiofile": "../../assets/audio/loops/15.mp3"
   },
   "16": {
@@ -201,6 +204,7 @@
     "desc": "Seven glacial systems around the world were studied to record the rate of their decline between 1960 and 2003. Across all locations, the glaciers have shown a decrease in volume. The cumulative mass balance shows highest decline for the Alaska and the Arctic regions. Melting glaciers add to rising sea levels, which in turn increases coastal erosion and elevates storm surge as warming air and ocean temperatures create more frequent and intense coastal storms like hurricanes and typhoons.The sound is represented by a field recording of a glacier melting. It had its rhythmic component extracted, and that rhythm triggers the sound of dripping water.",
     "legendpath": "../../assets/data/legends/16 glacier data_legend - Simplified.svg",
     "maskpath": "../../assets/data/legends/16 glacier data_mask_1-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 4474.855000000018,
@@ -375,6 +379,7 @@
     "desc": "Once upon a time, Bangalore was called the ‘City of Lakes’.Today,  five centuries later, modern Bangalore is often called the Silicon Valley of India, owing to its exponential growth in the Information Technology (IT) sector in the past few decades. A study shows that in the last five decades, between 1973 and 2007, Bangalore lost 262 water bodies. Urban floods and clogged roads are linked to the drying lakes, limiting the area in which water bodies can be stored. The sound is represented by the city sounds from Bangalore, combined with the sounds of sucking through a straw, manipulated to sound dry.",
     "legendpath": "../../assets/data/legends/32 Drying cities_Bangalore_legend-01.svg",
     "maskpath": "../../assets/data/legends/32 Drying cities_Bangalore_mask-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 7829.155000000019,
@@ -427,6 +432,7 @@
     "desc": "The Rhine is one of the major rivers of Europe, the second longest in Central and Western Europe, after the Danube. The convention of 1831 gave an international status to the Rhine, giving riparian nations the right to use its waters for navigation and commerce. This resulted in the development of major industries, thermal industries in particular, on the banks of the river. As a result, the Rhine river became the most thermally polluted basin in the world. It has suffered abuse such as decades of untreated industrial and domestic waste and incessant thermal pollution, 75% of  which come from nuclear power plants. The case study uses Thermal Infrared Remote Sensors to investigate the detrimental effects of power plants on the temperature of the Rhine river, on the banks of which they are located. The sound is represented by a field recording of the Rhine combined with sounds from a nuclear power plant, and manipulated to evoke evaporation and contamination.",
     "legendpath": "../../assets/data/legends/36 Rhine River temp_legend-01.svg",
     "maskpath": "../../assets/data/legends/36 Rhine River temp_mask-01-wOffset.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 7936.155000000019,
@@ -444,6 +450,7 @@
     "desc": "Lake Chou Hu, one of the five largest freshwater lakes in China in the Yangtze floodplain, showed signs of eutrophication since the 1970s. Just like Lake Tai Hu, Chou Hu has also suffered from the settlement of industries around the lake bed. The main causes for eutrophication of the lake is due to the amount of pollutants discharged into the lake. The dataset compares the nutrients–total nitrogen and total phosphorus carried by 11 rivers that flow into Lake Chaohu using water samples and sediment cores for the analysis of the pH. An instrument called the UV-Visible spectrophotometer was used to measure the absorption spectrum for nitrate (NO-3) which shows a peak at 224 nm depending on the amount of  NO-3 in the sample. The sound is represented by recordings of water combined with the frequency of Nitrogen and re-sampled to evoke sludgy, polluted water.",
     "legendpath": "../../assets/data/legends/38 Chaohu Eutrophication_legend-01.svg",
     "maskpath": "../../assets/data/legends/38 Chaohu Eutrophication_mask-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 7896.155000000019,
@@ -521,6 +528,7 @@
     "desc": "This data set centres around PBDE concentration analysis performed on tissues of fish collected from various locations in Guiyu and compared with that from Hong Kong, again showing a much higher concentration of PDBE in the fish found in the water bodies near Guiyu. The sound is represented by synthesizers equalized with a bandpass of 1088hz to 2687hz which are the amounts of PBDEs found in bighead carp in the Nanyang river evoke the feeling of being underwater and in the air simultaneously.",
     "legendpath": "../../assets/data/legends/44 Guiyu - PDBE in Fish_legend-01.svg",
     "maskpath": "../../assets/data/legends/44 Guiyu - PDBE in Fish_mask-01-01-wOffset.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 8247.405000000012,
@@ -538,6 +546,7 @@
     "desc": "This data set revolves around  the presence of transition metal in the bloodstream of children of Guiyu. Tests were performed on children in Guiyu where levels of transition metals in their bloodstream were measured. These tests were used to bring about a relation between lung function in school children and exposure to transition metals from e-waste recycling industries in Guiyu. Blood samples were taken from 71 children of various age groups in Guiyu and 73 children from Liangying, a neighbouring control area, where there were no e-waste recycling centres. The test results showed that the levels of transition metals in children from Guiyu were significantly higher than those from the control area. The sound is represented by three repeating pitches derived from the speed of sound of manganese, nickel, and chromium, combined with manipulated sounds of talking children.",
     "legendpath": "../../assets/data/legends/45b_legend-01.svg",
     "maskpath": "../../assets/data/legends/45b_mask-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 8325.405000000012,
@@ -687,6 +696,7 @@
     "desc": "This data set is based on a 2015 experiment that took place in a US lab in response to a hypothesis made in regards to how sound pollution in the ocean is affecting aquatic lifeforms. Marine life mainly depends on the use of sound for their survival. The ecological footprint of human activity is huge and the effects of which are in dire need of acknowledgement and treatment. Recordings of a boat engine in the open were recorded.This recorder played sounds between frequencies of 20 to 2,000 Hz. Multiple recordings taken at several distances from the hydrophone (underwater microphone) with a built-in amplifier to the boat engine, represented noise levels from very loud at 4 m to only moderately audible at 20 m. The fish were kept in an experimental aquaria constructed of glass in an insulated environmentally controlled room to minimize external noise, with timed lighting, allowing fish to remain on a natural light-dark cycle & were played underwater by an underwater speaker powered by an amplifier. After exposure, cortisol was extracted from each different fish to determine stress response to different noise levels that they were exposed to. A rise in cortisol concentration showed clearly that the recorded boat engine noise was increasing their stress levels. The experiment proves how intermittent noise is stressful to fish in comparison to continuous noise. The sound is represented by a sonar field recording mixed with submarine synthesizer sounds create a representation of underwater sound pollution.",
     "legendpath": "../../assets/data/legends/63 Sound Pollution_legend-01.svg",
     "maskpath": "../../assets/data/legends/63 Sound Pollution_mask-01-01.svg",
+    "rect": "true",
     "popdimensions": [
       {
         "x": 9447.944999999976,
