@@ -50,9 +50,9 @@ class Molecule {
             this.y = newPosition.y;
             //            const local = graphics.toLocal(newPosition)
             //            console.log("global",newPosition)
-            soundeffects.crossfade.fade.rampTo(0,0.02)
+            soundeffects.crossfade.fade.rampTo(0,0.2)
             if(soundareas.currentArea.containsPoint(newPosition)) {
-                soundeffects.crossfade.fade.rampTo(1,0.02)
+                soundeffects.crossfade.fade.rampTo(1,0.2)
                 let np = getNormalizedPosition(newPosition)
                 soundeffects.changeParameters(np);
             }
@@ -229,7 +229,7 @@ $("#m").on("change", function() {
         $("p").text(datasets[i].title);
         soundareas.setNew(i);
         soundeffects.setNewBuffer(i);
-        app.stage.addChild(soundareas.currentArea)
+        //app.stage.addChild(soundareas.currentArea)
         app.stage.addChild(molecule.moleculeContainer);
 
     } else {
