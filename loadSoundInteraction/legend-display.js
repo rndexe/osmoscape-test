@@ -4,9 +4,11 @@ const app = new PIXI.Application({
     backgroundColor: 0x6d7c80,
     resolution: window.devicePixelRatio || 1,
     antialias: true,
+    view: canvas
 });
 
-let datasets,mergedSoundAreas;
+let datasets,mergedSoundAreas,mergedLegends;
+let mainScrollScale;
 document.body.appendChild(app.view);
 
 class Molecule {
@@ -85,11 +87,18 @@ class SoundEffects {
         this.crossfade.connect(Tone.getDestination());
     }
     setNewBuffer(num) {
-        this.grainplayer.buffer = buffers.get(num); 
-        this.player.buffer = buffers.get(num);
+        const currentBuffer = new Tone.ToneAudioBuffer({
+            url:   "../data/audio/loops/"+num+".mp3",
+            onload: () => {
 
-        this.player.start();
-        this.grainplayer.start();
+                this.grainplayer.buffer = currentBuffer; 
+                this.player.buffer = currentBuffer;
+
+                this.player.start();
+                this.grainplayer.start();
+            }
+        }
+        ); 
     }
     setDefaultParameterRange() {
 
@@ -117,9 +126,9 @@ class SoundEffects {
 
         this.vibrato.frequency.rampTo(np.ny * this.freqRange + this.freqMin,0.1);
         this.vibrato.depth.rampTo(np.nx * this.depthRange + this.depthMin,0.1);
-        
+
         this.pitchshift.pitch = np.ny * this.pitchRange + this.pitchMin;
-        
+
         this.grainplayer.detune = np.nx * this.detuneRange + this.detuneMin;
         this.grainplayer.grainSize = np.ny * this.grainSizeRange + this.grainSizeMin; 
         this.grainplayer.loopStart = np.ny * this.loopStartRange + this.loopStartMin;
@@ -142,7 +151,7 @@ class SoundInteractionArea {
         }
     }
     setInitialPositionAndScale(num) {
-        let bounds = this.areas[num].getBounds()
+/*        let bounds = this.areas[num].getBounds()
         let scale=(window.innerWidth-200)/bounds.width;
         this.areas[num].scale.set(scale*0.75)
         let newBounds = this.areas[num].getBounds()
@@ -154,7 +163,9 @@ class SoundInteractionArea {
         this.areas[num].y = starty;
 
         this.currentBounds = this.areas[num].getBounds()
-        console.log("Bounds:",this.currentBounds);
+*/
+//        let lms = app.screen.height/legendTexture.height;
+//        console.log("Bounds:",this.currentBounds);
     }
     setNewPositionAndScale(num, newx, newy) {
         this.areas[num].x = newx;
@@ -166,10 +177,10 @@ class SoundInteractionArea {
         let soundArea = JSON.parse(mergedSoundAreas[num]);
         //let rect = soundArea.shapes[0][0].shape;
         let shapeArray = soundArea.shapes.default;
-        console.log(shapeArray)
+        //console.log(shapeArray)
         if (datasets[num].rect === "true") {
             let rect = shapeArray[0].shape;
-            console.log(rect)
+            //console.log(rect)
             this.areas[num] = new PIXI.Graphics()
                 .beginFill(0xFFA500,0.2)
                 .drawRect(rect[0], rect[1], rect[2]-rect[0], rect[3]-rect[1]);
@@ -195,6 +206,7 @@ const soundareas = new SoundInteractionArea();
 const soundeffects = new SoundEffects();
 let mergedSoundURL = '../data/mergedSoundAreas_v2.json';
 let mergedCsvURL = '../data/csv/mergedCsvData.json';
+let legendsURL = '../data/encodedSVG.json';
 let dataURL = '../data/dataSummary.json';
 let buffers = {};
 
@@ -216,62 +228,51 @@ $(document).ready(function() {
         mergedCsvData = data;
         console.log("Loaded CSV data");
     });
-    $("#p").on("click",() => {
-        loadBuffers();
+    console.log("Loading Legends from " + legendsURL);
+    $.getJSON(legendsURL, function( data ) {
+        mergedLegends = data;
+        console.log('Loaded Legend files');
+    });
+    let _url = '../data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
+	PIXI.Loader.shared.add(_url+'01-or8.png').load(() => {
+        let scroll_01 = new PIXI.Sprite(PIXI.Loader.shared.resources[_url+'01-or8.png'].texture);
+        mainScrollScale = app.screen.height/scroll_01.height;
+    });
+
+    $("#p").on("click",async () => {
+        $("#p").prop("disabled", true);
+        await Tone.start();
+        console.log("Context started");
+        $("#p").text("Started");
     });
 });
 
 $("#m").on("change", function() {
     let i = ($(this).val());
     if(i in datasets) {
-        console.log(i,datasets[i].title)
+        console.log(datasets[i].title)
         app.stage.removeChildren();
         $("p").text(datasets[i].title);
-        soundareas.setNew(i);
-        soundeffects.setNewBuffer(i);
-        //app.stage.addChild(soundareas.currentArea)
-        app.stage.addChild(molecule.moleculeContainer);
+        if(datasets[i].hasOwnProperty("popdimensions")) {
 
+            let soundArea = JSON.parse(mergedSoundAreas[i]);
+            if(!$.isEmptyObject(soundArea)) {
+                loadLegend(i)
+                soundareas.setNew(i);
+                soundeffects.setNewBuffer(i);
+                app.stage.addChild(soundareas.currentArea)
+                app.stage.addChild(molecule.moleculeContainer);
+            } else {
+            $("p").text(i + datasets[i].title + " has no soundarea defined");
+            }
+        } else {
+            $("p").text(i + datasets[i].title + " has no popdimensions");
+        }
     } else {
-        $("p").text("No dataset for that id");
+        $("p").text("No dataset for id number " + i);
+        app.stage.removeChildren();
     }
 });
-
-
-const loadBuffers = () => {
-    buffers = new Tone.ToneAudioBuffers({
-        urls: {
-            "4": "4.mp3",
-            "5": "5.mp3",
-            "7": "7.mp3",
-            "8": "8.mp3",
-            "9": "9.mp3",
-            "11": "11.mp3",
-            "14": "14.mp3",
-            "15": "15.mp3",
-            "16": "16.mp3",
-            "32": "32.mp3",
-            "36": "36.mp3",
-            "38": "38.mp3",
-            "44": "44.mp3",
-            "45": "45.mp3",
-            "50": "50.mp3",
-            "53": "53.mp3",
-            "55": "55.mp3",
-            "63": "63.mp3",
-            "48": "48.mp3",
-        },
-        onload: async () => {
-            console.log("Sound loops loaded");
-            $("#p").text("Loaded");
-            $("#p").prop("disabled", true);
-
-            await Tone.start();
-            console.log("Context started");
-        },
-        baseUrl: "../data/audio/loops/"
-    });
-}
 
 const getNormalizedPosition = (pos) => {
 
@@ -281,20 +282,75 @@ const getNormalizedPosition = (pos) => {
     np.nx = np.x/soundareas.currentBounds.width;
     np.ny = np.y/soundareas.currentBounds.height;
     np.navg = (np.nx+np.ny)/2;
-//    console.log(np);
+    //    console.log(np);
     return np;
 }
 
-const throttled = (delay, fn) => {
-    let lastCall = 0;
-    return function (...args) {
-        const now = (new Date).getTime();
-        if (now - lastCall < delay) {
-            return;
-        }
-        lastCall = now;
-        return fn(...args);
+const loadLegend = (id) => {
+
+    if (datasets.hasOwnProperty(id)) {
+        console.log('Loading data for : ' + id);
+        let legenddata = mergedLegends[id];
+        let dim = datasets[id].popdimensions;
+        let resource = new PIXI.SVGResource (legenddata, {scale: 1.5});
+        let legendTexture = PIXI.Texture.from(resource);
+
+        let legendLoaded = false;
+        legendTexture.on('update', () => {
+				if(!legendLoaded){
+                    let legend = new PIXI.Sprite(legendTexture);
+                    let s = mainScrollScale;
+                    //let lms = app.screen.width/legendTexture.width;
+                    let screenToLegendRatio = app.screen.height/legendTexture.height;
+                    //let offset = 1028;
+                    //legend.x = (1440/821)*(3/4)*1.5
+                    //           *(app.screen.width)*lms
+                    //            *lms
+					legend.scale.set(screenToLegendRatio, screenToLegendRatio);
+					
+
+                    app.stage.addChild(legend);
+                    showLegend(id,screenToLegendRatio,legend,dim);
+                }
+				legendLoaded = true;
+        });
     }
+}
+
+const showLegend = (number,screenToLegendRatio,legend,dim) => {
+    console.log('Repositioning legend ' + number);
+    let _x = parseInt(dim[0].x);
+    let _y = parseInt(dim[0].y);
+    let _width = parseInt(dim[0].width);
+    let _height = parseInt(dim[0].height);
+    //
+    legend.x = 0
+//    let rs = app.screen.height/(623.5*1.5);
+    let rs = (623*1.5/821);
+    let s = screenToLegendRatio*rs;
+    console.log(_x,_y)
+    _x -= (1440)*(3/4)//*(821/app.screen.height)
+    _x = _x*s;
+    _y = _y*s;
+    _width = _width*s;
+    _height = _height*s;
+    //_x *= screenToLegendRatio
+    console.log(_x,_y)
+    let bb = new PIXI.Graphics()
+            .lineStyle(1, 0xFF0000, 1)
+            .beginFill(0xFFFFFF,0.05)
+            .drawRect(_x,_y,_width,_height)
+            .endFill()
+    let lbb = new PIXI.Graphics()
+            .lineStyle(1, 0xFFFFFF, 0.25)
+            .beginFill(0xFFFFFF,0.25)
+            .drawRect(legend.x,legend.y,legend.width,legend.height)
+            .endFill()
+    app.stage.position=new PIXI.Point(-1*_x,0)
+    app.stage.addChild(lbb)
+    app.stage.addChild(bb)
+
+    
 }
 
 
