@@ -71,16 +71,17 @@ const loadLegend = (id) => {
                     let legend = new PIXI.Sprite(legendTexture);
                     let s = mainScrollScale;
                     let legendScale = app.screen.height/legendTexture.height;
+                    //let legendScale = app.screen.width/legendTexture.width;
 					legend.scale.set(legendScale, legendScale);
                     app.stage.addChild(legend);
-                    showLegend(id,legendScale,legend,dim);
+                    showLegend(id,legend,dim);
                 }
 				legendLoaded = true;
         });
     }
 }
 
-const showLegend = (number,legendScale,legend,dim) => {
+const showLegend = (number,legend,dim) => {
     console.log('Repositioning legend ' + number);
     let _x = parseInt(dim[0].x);
     let _y = parseInt(dim[0].y);
@@ -93,15 +94,17 @@ const showLegend = (number,legendScale,legend,dim) => {
     _y = _y*s;
     _width = _width*s;
     _height = _height*s;
-    //_x *= legendScale
+   let _widthPopupScale = (50/100)*app.screen.width/(_width)
+    let _heightPopupScale = (80/100)*app.screen.height/(_height)
+    legend.pivot.x = _x+_width/2;
+    legend.pivot.y = _y+_height/2;
+    legend.position.x = app.screen.width/2;
+    legend.position.y = app.screen.height/2;
     let bb = new PIXI.Graphics()
             .lineStyle(1, 0xFF0000, 1)
             .beginFill(0xFFFFFF,0.05)
             .drawRect(_x,_y,_width,_height)
-           // .drawRect(0,_y,_width,_height)
             .endFill()
-    app.stage.position=new PIXI.Point(-1*_x,0)
-    app.stage.addChild(bb)
 }
 
 
