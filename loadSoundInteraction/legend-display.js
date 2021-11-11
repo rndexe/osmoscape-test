@@ -9,6 +9,7 @@ const app = new PIXI.Application({
 
 let datasets,mergedSoundAreas,mergedLegends;
 let mainScrollScale;
+let mainScrollWidth;
 document.body.appendChild(app.view);
 
 class Molecule {
@@ -139,19 +140,19 @@ class SoundInteractionArea {
     constructor() {
         this.areas = {};
     }
-    setNew(num) {
+    setNew(num,s,pos) {
         if(num in this.areas) {
             this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num)
+            this.setInitialPositionAndScale(num,s,pos)
         }
         else {
             this.loadNew(num)
             this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num)
+            this.setInitialPositionAndScale(num,s,pos)
         }
     }
-    setInitialPositionAndScale(num) {
-/*        let bounds = this.areas[num].getBounds()
+    setInitialPositionAndScale(num,s,pos) {
+        /*        let bounds = this.areas[num].getBounds()
         let scale=(window.innerWidth-200)/bounds.width;
         this.areas[num].scale.set(scale*0.75)
         let newBounds = this.areas[num].getBounds()
@@ -162,10 +163,12 @@ class SoundInteractionArea {
         this.areas[num].x = startx;
         this.areas[num].y = starty;
 
+        */
+        console.log(s,pos)
+        this.areas[num].scale.set(s)
+        this.areas[num].position = pos
         this.currentBounds = this.areas[num].getBounds()
-*/
-//        let lms = app.screen.height/legendTexture.height;
-//        console.log("Bounds:",this.currentBounds);
+        //        console.log("Bounds:",this.currentBounds);
     }
     setNewPositionAndScale(num, newx, newy) {
         this.areas[num].x = newx;
@@ -183,7 +186,8 @@ class SoundInteractionArea {
             //console.log(rect)
             this.areas[num] = new PIXI.Graphics()
                 .beginFill(0xFFA500,0.2)
-                .drawRect(rect[0], rect[1], rect[2]-rect[0], rect[3]-rect[1]);
+                .drawRect(rect[0], rect[1], rect[2]-rect[0], rect[3]-rect[1])
+                .endFill();
         } else {
             this.areas[num] = shapeArray.reduce((graphics, shape, index, array) => {
                 if (index === 0) { 
@@ -204,7 +208,7 @@ class SoundInteractionArea {
 const molecule = new Molecule();
 const soundareas = new SoundInteractionArea();
 const soundeffects = new SoundEffects();
-let mergedSoundURL = '../data/mergedSoundAreas_v2.json';
+let mergedSoundURL = '../data/mergedSoundAreas.json';
 let mergedCsvURL = '../data/csv/mergedCsvData.json';
 let legendsURL = '../data/encodedSVG.json';
 let dataURL = '../data/dataSummary.json';
@@ -234,9 +238,10 @@ $(document).ready(function() {
         console.log('Loaded Legend files');
     });
     let _url = '../data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
-	PIXI.Loader.shared.add(_url+'01-or8.png').load(() => {
+    PIXI.Loader.shared.add(_url+'01-or8.png').load(() => {
         let scroll_01 = new PIXI.Sprite(PIXI.Loader.shared.resources[_url+'01-or8.png'].texture);
         mainScrollScale = app.screen.height/scroll_01.height;
+        mainScrollWidth=scroll_01.width*2*mainScrollScale;
     });
 
     $("#p").on("click",async () => {
@@ -258,12 +263,10 @@ $("#m").on("change", function() {
             let soundArea = JSON.parse(mergedSoundAreas[i]);
             if(!$.isEmptyObject(soundArea)) {
                 loadLegend(i)
-                soundareas.setNew(i);
                 soundeffects.setNewBuffer(i);
-                app.stage.addChild(soundareas.currentArea)
                 app.stage.addChild(molecule.moleculeContainer);
             } else {
-            $("p").text(i + datasets[i].title + " has no soundarea defined");
+                $("p").text(i + datasets[i].title + " has no soundarea defined");
             }
         } else {
             $("p").text(i + datasets[i].title + " has no popdimensions");
@@ -294,63 +297,39 @@ const loadLegend = (id) => {
         let dim = datasets[id].popdimensions;
         let resource = new PIXI.SVGResource (legenddata, {scale: 1.5});
         let legendTexture = PIXI.Texture.from(resource);
-
         let legendLoaded = false;
         legendTexture.on('update', () => {
-				if(!legendLoaded){
-                    let legend = new PIXI.Sprite(legendTexture);
-                    let s = mainScrollScale;
-                    //let lms = app.screen.width/legendTexture.width;
-                    let screenToLegendRatio = app.screen.height/legendTexture.height;
-                    //let offset = 1028;
-                    //legend.x = (1440/821)*(3/4)*1.5
-                    //           *(app.screen.width)*lms
-                    //            *lms
-					legend.scale.set(screenToLegendRatio, screenToLegendRatio);
-					
-
-                    app.stage.addChild(legend);
-                    showLegend(id,screenToLegendRatio,legend,dim);
-                }
-				legendLoaded = true;
+            if(!legendLoaded){
+                let legend = new PIXI.Sprite(legendTexture);
+                let s = mainScrollScale;
+                let legendScale = app.screen.height/legendTexture.height;
+                legend.scale.set(legendScale, legendScale);
+                app.stage.addChild(legend);
+                showLegend(id,legend,dim);
+                soundareas.setNew(id,app.screen.height/623.5,legend.position);
+                app.stage.addChild(soundareas.currentArea)
+            }
+            legendLoaded = true;
         });
     }
 }
 
-const showLegend = (number,screenToLegendRatio,legend,dim) => {
+
+const showLegend = (number,legend,dim) => {
     console.log('Repositioning legend ' + number);
     let _x = parseInt(dim[0].x);
     let _y = parseInt(dim[0].y);
     let _width = parseInt(dim[0].width);
     let _height = parseInt(dim[0].height);
-    //
-    legend.x = 0
-//    let rs = app.screen.height/(623.5*1.5);
-    let rs = (623*1.5/821);
-    let s = screenToLegendRatio*rs;
-    console.log(_x,_y)
-    _x -= (1440)*(3/4)//*(821/app.screen.height)
-    _x = _x*s;
+    let s = app.screen.height/821;
+    _x = _x*s-(mainScrollWidth-legend.width);
     _y = _y*s;
     _width = _width*s;
     _height = _height*s;
-    //_x *= screenToLegendRatio
-    console.log(_x,_y)
-    let bb = new PIXI.Graphics()
-            .lineStyle(1, 0xFF0000, 1)
-            .beginFill(0xFFFFFF,0.05)
-            .drawRect(_x,_y,_width,_height)
-            .endFill()
-    let lbb = new PIXI.Graphics()
-            .lineStyle(1, 0xFFFFFF, 0.25)
-            .beginFill(0xFFFFFF,0.25)
-            .drawRect(legend.x,legend.y,legend.width,legend.height)
-            .endFill()
-    app.stage.position=new PIXI.Point(-1*_x,0)
-    app.stage.addChild(lbb)
-    app.stage.addChild(bb)
-
-    
+    legend.x -= (_x -app.screen.width/2 + _width/2)
+    legend.y -= (_y - app.screen.height/2 + _height/2)
+    //    app.stage.position = new PIXI.Point(-1*_x +app.screen.width/2 - _width/2 , -1*_y + app.screen.height/2 - _height/2 )
+//    app.stage.scale.set(1/10,1/10)
 }
 
 
