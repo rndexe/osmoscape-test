@@ -47,7 +47,6 @@
     "desc": "The study brings forth the important question of access to clean water across the globe. Taking US dollars as the common unit, the study compares the GDP of all the countries to make a comprehensive comparison of access to improved water sources. The study emerges after surveying various countries from 1990 to 2016. It defines water stress as the ratio of freshwater withdrawals to renewable freshwater resources. If a country's withdrawals exceeds the available sources, then the country is under water-stress. The study shows a global link between freshwater access and a country's GDP. High income countries reflect between 98-99% of population with access to an improved source of water between 1990-2016 followed by upper middle income at 76-95% and middle income countries at 72-92%. Lower income countries as well as countries that are classified as poor, fragile, least developed and indebted are struggling to meet water demands with a population between 40-70% having access to an improved source of water. The dataset raises important questions regarding water access, water scarcity and security. The sound is represented by a field recording of a young girl walking to find water, punctuated with the sound of an ATM machine.",
     "legendpath": "../../assets/data/legends/4 Water access vs GDP-legend_01-01.svg",
     "maskpath": "../../assets/data/legends/4 Water access vs GDP_mask-01-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 1139.1900000000032,
@@ -65,7 +64,6 @@
     "desc": "A study conducted by  researchers at the State Hydrological Institute, Russian Federation, from 1975 to 1990 highlighted the global consumption of water by the agricultural and industrial sectors. The study raised questions on how water withdrawal was increasing annually and with it the gap between water withdrawal and consumption, suggesting a higher rate of water getting wasted in industrial and agriculture processes. The study provided an assessment of the freshwater resources of the 21st century by forecasting global water use for 2000 and 2025 with the data on increasing water demand, population growth and water availability. It shows that the rapid population growth between 1970 and 1994 resulted in a decrease in water availability from 12.9 to 7.6 thousand cubic metres per person annually. The sound is represented by processed recordings of modern agricultural machines.",
     "legendpath": "../../assets/data/legends/5 Industrial Agriculture Linking_legend-01.svg",
     "maskpath": "../../assets/data/legends/5 Industrial Agriculture Linking_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 1700.6200000000035,
@@ -95,7 +93,6 @@
         "height": 636.5017166137695
       }
     ]
- 
   },
   "7": {
     "ch": "ch3",
@@ -104,7 +101,6 @@
     "desc": "The World Resources Institute conducted a study of twelve countries showing  a rapid increase of carbon emissions from 1850 to 2012. The period between 1850-1900 is taken as the period of pre-industrial revolution. The pattern shows an  increase in the emissions for each of the selected countries. It shows that the developed world achieved economic growth due to large scale use of industries and burning of fossil fuels. They still continue to depend on fossil fuels to maintain their growth and continue to emit tons of carbon dioxide in the atmosphere. In recent years , the developing nations have also joined the race towards attaining a developed nation status and this has led to recurring in the old pattern that was seen in the western countries earlier. The sound is represented by recordings of a Tuk Tuk engine, diesel locomotives, and car engine, processed using granular synthesis.",
     "legendpath": "../../assets/data/legends/7 Co2 Emission through the years_legend-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/7 Co2 Emission through the years_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 1482.3550000000077,
@@ -122,7 +118,6 @@
     "desc": "The sea surface temperature is a measure of the energy of the molecules at the ocean surface, that is, the water temperature of the ocean surface. Measuring this helps in understanding the interaction between the sea surface and the layers of atmosphere above it, as it is this interaction that regulates the climate. A global study using satellite data and historical records to show that global sea surface temperatures have shown a steady rise between 1850 and 2018. The increase has been seen after the 1900s, which is the beginning of the industrial era. The ocean is a massive sink of carbon dioxide, which means that it absorbs the carbon dioxide from various sources as well as the heat radiated back to the earth from the greenhouse gases. The sound is represented by recordings of boiling water combined with field recordings of a coral reef.",
     "legendpath": "../../assets/data/legends/08_global sea surface temp-legend-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/08_global sea surface temp_mask-01.svg",
-    "rect": "true",
     "audiofile": "../../assets/audio/loops/8.mp3",
     "popdimensions": [
       {
@@ -132,7 +127,6 @@
         "height": 522.7484436035156
       }
     ]
- 
   },
   "9": {
     "ch": "ch3",
@@ -142,7 +136,6 @@
     "legendpath": "../../assets/data/legends/9 Bay of Bengal_ Arabian Sea SST_legend - Simplified.svg",
     "maskpath": "../../assets/data/legends/9 Bay of Bengal_ Arabian Sea SST_mask -01.svg",
     "order": "front",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 2649.6550000000047,
@@ -169,14 +162,13 @@
         "height": 790.7280416488647
       }
     ]
- 
   },
   "12": {
     "ch": "ch3",
     "id": "12",
     "title": "Vermont acid rain",
     "desc": "Vermont is a picturesque “green mountain state” in north-eastern USA. It is also one of the first few states to be recognised for being affected by acid rain. Fossil fuel plants in the 1980s which were based in midwest emitted gases such as sulphur dioxide and nitrous oxide. These were carried towards the north east by the wind patterns and mixed with the rainwater, fog and snow there, lowering the pH of water, making it acidic. A long-term monitoring of atmospheric deposition revealed that it was acid rain that caused the decline of several trees, including 300-year-old red spruce trees, and lakes of the green mountain. Similar well documented occurrences of acid rain have happened in other parts of the world, such as Norway, Germany, China and India. The pattern of its occurrence in each region corresponds with the surge of industrialisation in that region.  The sound is represented by a field recording of a Vermont rain storm, re-sampled and processed to add a sizzling and splatting element in order to evoke acid rain.",
-    "legendpath": "../../assets/data/legends/12 Vermont Acid rain Layer 4 mask-01 - Simplified.svg",
+    "legendpath": "../../assets/data/legends/12 Vermont Acid rain Layer 4 Print-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/12 Vermont Acid rain Layer 4 mask-01.svg",
     "order": "front",
     "audiofile": "../../assets/audio/loops/12.mp3",
@@ -188,7 +180,6 @@
         "height": 396.799015045166
       }
     ]
- 
   },
   "13": {
     "ch": "ch3",
@@ -214,7 +205,6 @@
     "desc": "Ten datasets of ice cores from different parts of the world were analysed to measure the carbon concentration trapped in the cores. Records were obtained from 800,000BC till 2015. The concentration have varied to a maximum of 300 parts per million(ppm). If we observe the trend after 1900, it shows that the carbon dioxide concentrations have been steadily rising, and for the first time in earth’s history they have crossed the 400 ppm levels. The sound is represented by a binaural recording of ice and a field recording of Vostok, Antarctica. It is manipulated to create 6 discrete layers of sounds to represent Carbon, the atomic number of which is 6.",
     "legendpath": "../../assets/data/legends/14 CO2 conc in ice core sample_legend-01 - Simplified.svg",
     "maskpath": "../../assets/data/legends/14 CO2 conc in ice core sample_legend_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 3467.415000000002,
@@ -232,7 +222,6 @@
     "desc": "Researchers at the Institute of Tibetan Plateau Research in China conducted a study of ice cores from five different locations of the Tibetan Plateau, revealing the presence of black soot deposits. Black soot is formed from the incomplete combustion of fossil fuel. It gets transported by wind, mixes with rainwater and snow, and settles on glaciers. This leads to darkening of the surface of the glacier. The glaciers being white, have high albedo. This means they are able to reflect back most of the sunlight without absorbing it. Due to the presence of soot, they absorb sunlight and reduce the reflecting capacity of the glacier.This soot then contributes to the melting of the surface of the glacier. The soot received in the Tibetan glaciers in this study is mostly from Europe and the Middle East in the past. The sound is represented by field recordings of an Indian farmers burning their fields, combined with recordings of a glacier in the Karakoram.",
     "legendpath": "../../assets/data/legends/15 Black carbon annual data_legend-01.svg",
     "maskpath": "../../assets/data/legends/15 Black carbon annual data_mask-01.svg",
-    "rect": "true",
     "audiofile": "../../assets/audio/loops/15.mp3",
     "popdimensions": [
       {
@@ -242,7 +231,6 @@
         "height": 740.8799438476562
       }
     ]
- 
   },
   "16": {
     "ch": "ch4",
@@ -251,7 +239,6 @@
     "desc": "Seven glacial systems around the world were studied to record the rate of their decline between 1960 and 2003. Across all locations, the glaciers have shown a decrease in volume. The cumulative mass balance shows highest decline for the Alaska and the Arctic regions. Melting glaciers add to rising sea levels, which in turn increases coastal erosion and elevates storm surge as warming air and ocean temperatures create more frequent and intense coastal storms like hurricanes and typhoons.The sound is represented by a field recording of a glacier melting. It had its rhythmic component extracted, and that rhythm triggers the sound of dripping water.",
     "legendpath": "../../assets/data/legends/16 glacier data_legend - Simplified.svg",
     "maskpath": "../../assets/data/legends/16 glacier data_mask_1-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 4474.855000000018,
@@ -284,7 +271,7 @@
     "id": "19",
     "title": "Aral sea breast milk analytes",
     "desc": "Rising infant mortality in Kazakhstan and declining practice of breast feeding led to a study of breast milk by researcher Kim Hooper in February 1994. There were concerns about the presence of contaminants in breast milk. 92 first-time mothers with 2-8 week-old infants were chosen for the study.  The samples of milk were taken from seven different sites, chosen to reflect major agricultural, industrial and population centres in Kazakhstan. Other than samples of human breast milk, cow’s milk, fish from the region were also collected and tested for the presence of contaminants such as Organochlorine Pesticides (OC), Polychlorinated biphenyls (PCBs), Hexachlorocyclohexane and its isomers (HCH) and DDT and its metabolites. \nThe study found high levels of a pesticide called Beta-HCH. PCB toxicity was high in one of the sampled sites, Atyaru. Another pesticide DDE showed high levels in rural areas. The study helps in understanding how women and young children were the most affected in this ecological disaster. The brunt of disease and mortality are carried the most by vulnerable sections of the society. The sound is represented by a recording of a baby breastfeeding, manipulated and subtly combined with the sound of a Monsanto advertisement.",
-    "legendpath": "../../assets/data/legends/19 Aral sea breast milk analytes_legend-01.svg",
+    "legendpath": "../../assets/data/legends/19 Aral sea breast milk analytes_vector_legend_updated.svg",
     "maskpath": "../../assets/data/legends/19 Aral sea breast milk analytes_mask-01.svg",
     "popdimensions": [
       {
@@ -318,7 +305,7 @@
     "id": "21",
     "title": "Cotton production",
     "desc": "Cotton is a water-intensive crop. The top seven cotton producing nations, Brazil, China, India, Pakistan, Turkey, the United States, and Uzbekistan, account for 84% of global cotton production. In this dataset, patterns related to weather and cotton production give a better understanding of the variability of cotton production and the influence it has on global production. The study shows a falling cotton production in 2016-17 when La Nina weather conditions existed. La Nina is an irregularly recurring upwelling of unusually cold water to the ocean surface along the western coast of South America that often occurs and disrupts typical regional and global weather patterns. There are critical questions being raised in the face of the current global climate change and a lack of infrastructure for careful allocation of water. The sound is represented by a recording of cotton fields being irrigated, combined with the sound of water running down a bathtub drain.",
-    "legendpath": "../../assets/data/legends/21 Cotton production_legend-01.svg",
+    "legendpath": "../../assets/data/legends/21 Cotton production by country_legend_updated.svg",
     "maskpath": "../../assets/data/legends/21 Cotton production_mask-01.svg",
     "popdimensions": [
       {
@@ -442,7 +429,6 @@
     "desc": "Once upon a time, Bangalore was called the ‘City of Lakes’.Today,  five centuries later, modern Bangalore is often called the Silicon Valley of India, owing to its exponential growth in the Information Technology (IT) sector in the past few decades. A study shows that in the last five decades, between 1973 and 2007, Bangalore lost 262 water bodies. Urban floods and clogged roads are linked to the drying lakes, limiting the area in which water bodies can be stored. The sound is represented by the city sounds from Bangalore, combined with the sounds of sucking through a straw, manipulated to sound dry.",
     "legendpath": "../../assets/data/legends/32 Drying cities_Bangalore_legend-01.svg",
     "maskpath": "../../assets/data/legends/32 Drying cities_Bangalore_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 7829.155000000019,
@@ -495,7 +481,6 @@
     "desc": "The Rhine is one of the major rivers of Europe, the second longest in Central and Western Europe, after the Danube. The convention of 1831 gave an international status to the Rhine, giving riparian nations the right to use its waters for navigation and commerce. This resulted in the development of major industries, thermal industries in particular, on the banks of the river. As a result, the Rhine river became the most thermally polluted basin in the world. It has suffered abuse such as decades of untreated industrial and domestic waste and incessant thermal pollution, 75% of  which come from nuclear power plants. The case study uses Thermal Infrared Remote Sensors to investigate the detrimental effects of power plants on the temperature of the Rhine river, on the banks of which they are located. The sound is represented by a field recording of the Rhine combined with sounds from a nuclear power plant, and manipulated to evoke evaporation and contamination.",
     "legendpath": "../../assets/data/legends/36 Rhine River temp_legend-01.svg",
     "maskpath": "../../assets/data/legends/36 Rhine River temp_mask-01-wOffset.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 7936.155000000019,
@@ -513,7 +498,6 @@
     "desc": "Lake Chou Hu, one of the five largest freshwater lakes in China in the Yangtze floodplain, showed signs of eutrophication since the 1970s. Just like Lake Tai Hu, Chou Hu has also suffered from the settlement of industries around the lake bed. The main causes for eutrophication of the lake is due to the amount of pollutants discharged into the lake. The dataset compares the nutrients–total nitrogen and total phosphorus carried by 11 rivers that flow into Lake Chaohu using water samples and sediment cores for the analysis of the pH. An instrument called the UV-Visible spectrophotometer was used to measure the absorption spectrum for nitrate (NO-3) which shows a peak at 224 nm depending on the amount of  NO-3 in the sample. The sound is represented by recordings of water combined with the frequency of Nitrogen and re-sampled to evoke sludgy, polluted water.",
     "legendpath": "../../assets/data/legends/38 Chaohu Eutrophication_legend-01.svg",
     "maskpath": "../../assets/data/legends/38 Chaohu Eutrophication_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 7896.155000000019,
@@ -529,7 +513,7 @@
     "id": "40",
     "title": "Sukinda mines water sediment analysis for chromium",
     "desc": "Sukinda valley is a town in the Jajpur district in the eastern Indian state of Odisha. The small, unassuming town of Sukinda is world famous. It contains 97% of India’s chromium ore deposits, and has one of the largest open cast chromite ore mines in the world. In the year 2007, the US-based Blacksmith Institute released a report taking a range of parameters to identify the ten most polluted places in the world. Sukinda was one of them. A study by Odisha-based non-profit Environment Protection Group revealed that the percentage of hexavalent chromium (Cr+6) in the rivers is higher than the permissible limit. Approximately 70% of the surface water and 60% of the drinking water contains hexavalent chromium at more than double national and international standards and levels of over 20 times the standard have been recorded. Hexavalent chromium is a known human carcinogen and adversely affects human health. The sound is represented by synthesized mining sounds, manipulated to create additional dusty and sludgy textures, and a repeating tone at 1907Hz (derived from the 1907 C melting point of Chromium).",
-    "legendpath": "../../assets/data/legends/40_Sukinda mines water_sediment_anlaysis for chromium_legend-01.svg",
+    "legendpath": "../../assets/data/legends/40_Sukinda mines water_sediment_anlaysis for chromium_legend_updated.svg",
     "maskpath": "../../assets/data/legends/40_Sukinda mines water_sediment_anlaysis for chromium_legend_mask-01.svg",
     "popdimensions": [
       {
@@ -546,7 +530,7 @@
     "id": "41",
     "title": "Sukinda mines sediment analysis for chromium",
     "desc": "Another case study by Odisha-based non-profit Environment Protection Group showed that the sediment in the soil in Sukinda, the village destroyed by chromium mining, shows more metal content in the post-monsoon period owing to the leaching of metals from the overburden of mining. The pH test reflected the acidic nature of the soil, within a range of 5.5 to 6.3. The sound is represented by a news story of mining protests in Sukinda, fed into a granular synthesizer. Notes are arranged in clusters of 6 and transposed only by intervals of 6 semitones in order to represent hexavalent chromium. The overall effect is evocative of mining. ",
-    "legendpath": "../../assets/data/legends/41_Sukinda mines _sediment_anlaysis for chromium-01.svg",
+    "legendpath": "../../assets/data/legends/41_Sukinda mines _sediment_anlaysis for chromium_legend_updated.svg",
     "maskpath": "../../assets/data/legends/41_Sukinda mines _sediment_anlaysis for chromium_mask-01.svg",
     "popdimensions": [
       {
@@ -599,7 +583,6 @@
     "desc": "This data set centres around PBDE concentration analysis performed on tissues of fish collected from various locations in Guiyu and compared with that from Hong Kong, again showing a much higher concentration of PDBE in the fish found in the water bodies near Guiyu. The sound is represented by synthesizers equalized with a bandpass of 1088hz to 2687hz which are the amounts of PBDEs found in bighead carp in the Nanyang river evoke the feeling of being underwater and in the air simultaneously.",
     "legendpath": "../../assets/data/legends/44 Guiyu - PDBE in Fish_legend-01.svg",
     "maskpath": "../../assets/data/legends/44 Guiyu - PDBE in Fish_mask-01-01-wOffset.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 8247.405000000012,
@@ -617,7 +600,6 @@
     "desc": "This data set revolves around  the presence of transition metal in the bloodstream of children of Guiyu. Tests were performed on children in Guiyu where levels of transition metals in their bloodstream were measured. These tests were used to bring about a relation between lung function in school children and exposure to transition metals from e-waste recycling industries in Guiyu. Blood samples were taken from 71 children of various age groups in Guiyu and 73 children from Liangying, a neighbouring control area, where there were no e-waste recycling centres. The test results showed that the levels of transition metals in children from Guiyu were significantly higher than those from the control area. The sound is represented by three repeating pitches derived from the speed of sound of manganese, nickel, and chromium, combined with manipulated sounds of talking children.",
     "legendpath": "../../assets/data/legends/45b_legend-01.svg",
     "maskpath": "../../assets/data/legends/45b_mask-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 8325.405000000012,
@@ -633,7 +615,7 @@
     "id": "46",
     "title": "46 Water and River",
     "desc": "India, home to nine large rivers flowing throughout the country generates a staggering 1.7 million tonnes of faecal waste a day, a large portion of which ends up in these water sources due to inappropriate sewage treatment.  Official records have shown that 78 percent of the sewage generated remains untreated and is disposed of in rivers, groundwater or lakes.  The dataset obtained from central government portals draws a comparison between the total sewage generated in all the states of India and the  treatment capacity of the installed sewage treatment plants across the country. Out of 38000 million litres per day of sewage generated treatment capacity exists for only about 12000 million litres per day. The sound is represented by field recording of India and rhythmic synthesizer pitched and timed corresponding to 62 which is the percentage of untreated daily waste nationally. ",
-    "legendpath": "../../assets/data/legends/46_legend-01.svg",
+    "legendpath": "../../assets/data/legends/46_legend_updated.svg",
     "maskpath": "../../assets/data/legends/46_mask-01-Simplified.svg",
     "order": "front",
     "popdimensions": [
@@ -777,7 +759,6 @@
     "desc": "This data set is based on a 2015 experiment that took place in a US lab in response to a hypothesis made in regards to how sound pollution in the ocean is affecting aquatic lifeforms. Marine life mainly depends on the use of sound for their survival. The ecological footprint of human activity is huge and the effects of which are in dire need of acknowledgement and treatment. Recordings of a boat engine in the open were recorded.This recorder played sounds between frequencies of 20 to 2,000 Hz. Multiple recordings taken at several distances from the hydrophone (underwater microphone) with a built-in amplifier to the boat engine, represented noise levels from very loud at 4 m to only moderately audible at 20 m. The fish were kept in an experimental aquaria constructed of glass in an insulated environmentally controlled room to minimize external noise, with timed lighting, allowing fish to remain on a natural light-dark cycle & were played underwater by an underwater speaker powered by an amplifier. After exposure, cortisol was extracted from each different fish to determine stress response to different noise levels that they were exposed to. A rise in cortisol concentration showed clearly that the recorded boat engine noise was increasing their stress levels. The experiment proves how intermittent noise is stressful to fish in comparison to continuous noise. The sound is represented by a sonar field recording mixed with submarine synthesizer sounds create a representation of underwater sound pollution.",
     "legendpath": "../../assets/data/legends/63 Sound Pollution_legend-01.svg",
     "maskpath": "../../assets/data/legends/63 Sound Pollution_mask-01-01.svg",
-    "rect": "true",
     "popdimensions": [
       {
         "x": 9447.944999999976,
@@ -822,7 +803,7 @@
     ],
     "audiofile": "../../assets/audio/loops/48.mp3"
   },
-  "48b": {
+  "49": {
     "id": "48b",
     "title": "48_class 1b cities _sewage",
     "desc": "48_class 1b cities _sewage",

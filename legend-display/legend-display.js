@@ -1,3 +1,47 @@
+class SoundInteractionArea {
+    constructor() {
+        this.areaContainer = new PIXI.Container();
+    }
+    setNew(num,s,pos) {
+            this.loadNew(num)
+            this.setInitialPositionAndScale(num,s,pos)
+    }
+    setInitialPositionAndScale(num,s,pos) {
+        //console.log(s,pos)
+            this.areaContainer.scale.set(s)
+            this.areaContainer.position = pos
+            this.currentBounds = this.areaContainer.getBounds()
+        //this.areas[num].scale.set(s)
+        //this.areas[num].position = pos
+        //        console.log("Bounds:",this.currentBounds);
+    }
+    setNewPositionAndScale(num, newx, newy) {
+        //     console.log("Position:",this.areas[num].getBounds());
+    }
+    loadNew(num) {
+        this.areaContainer.removeChildren()
+        let soundArea = JSON.parse(mergedSoundAreas[num]);
+        //let rect = soundArea.shapes[0][0].shape;
+        let shapeArray = soundArea.shapes;
+        //console.log(shapeArray)
+        for ( const shape in shapeArray) {
+            console.log(shape);
+        let s = shapeArray[shape].reduce((graphics, shape, index, array) => {
+            if (index === 0) { 
+                graphics.beginFill(0xFFA500);
+                graphics.alpha = 0.2;
+            }
+            graphics.drawPolygon(shape.shape)
+            if (index === array.length - 1) {
+                graphics.endFill();
+                graphics.visible = true;
+            };
+            return graphics;
+        }, new PIXI.Graphics());
+        this.areaContainer.addChild(s)
+        }
+    }
+}
 const app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -7,13 +51,15 @@ const app = new PIXI.Application({
     view: canvas
 });
 
-let datasets,mergedLegends;
+const soundareas = new SoundInteractionArea();
+let datasets,mergedLegends,mergedSoundAreas;
 let mainScrollScale;
 let mainScrollWidth;
 document.body.appendChild(app.view);
 
-let legendsURL = '../data/encodedSVG.json';
-let dataURL = '../data/dataSummary.json';
+let legendsURL = '../_data/encodedSVG.json';
+let dataURL = '../_data/dataSummary.json';
+let mergedSoundURL = '../_data/mergedSoundAreas.json';
 
 $(document).ready(function() {
     // executes when HTML-Document is loaded and DOM is ready
@@ -29,7 +75,12 @@ $(document).ready(function() {
         mergedLegends = data;
         console.log('Loaded Legend files');
     });
-    let _url = '../data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
+    console.log("Loading Soundarea data from: " + mergedSoundURL);
+    $.getJSON(mergedSoundURL, function( data ) {
+        mergedSoundAreas = data;
+        console.log("Loaded Soundarea data");
+    });
+    let _url = '../_data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
     PIXI.Loader.shared.add(_url+'01-or8.png').load(() => {
         let scroll_01 = new PIXI.Sprite(PIXI.Loader.shared.resources[_url+'01-or8.png'].texture);
         mainScrollScale = app.screen.height/scroll_01.height;
@@ -74,6 +125,8 @@ const loadLegend = (id) => {
                 legend.scale.set(legendScale, legendScale);
                 app.stage.addChild(legend);
                 showLegend(id,legend,dim);
+                soundareas.setNew(id,app.screen.height/623.5,legend.position);
+                app.stage.addChild(soundareas.areaContainer)
             }
             legendLoaded = true;
         });
@@ -101,77 +154,6 @@ const showLegend = (number,legend,dim) => {
         .drawRect(_x,_y,_width,_height)
         .endFill()
     app.stage.position = new PIXI.Point(-1*_x +app.screen.width/2 - _width/2 , -1*_y + app.screen.height/2 - _height/2 )
+    
     app.stage.addChild(bb)
 }
-
-class SoundInteractionArea {
-    constructor() {
-        this.areas = {};
-    }
-    setNew(num,s,pos) {
-        if(num in this.areas) {
-            this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num,s,pos)
-        }
-        else {
-            this.loadNew(num)
-            this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num,s,pos)
-        }
-    }
-    setInitialPositionAndScale(num,s,pos) {
-        /*        let bounds = this.areas[num].getBounds()
-        let scale=(window.innerWidth-200)/bounds.width;
-        this.areas[num].scale.set(scale*0.75)
-        let newBounds = this.areas[num].getBounds()
-        let startx = this.areas[num].x - newBounds.x+100;
-        let starty = this.areas[num].y - newBounds.y+100;
-        this.areas[num].startx = startx;
-        this.areas[num].starty = starty;
-        this.areas[num].x = startx;
-        this.areas[num].y = starty;
-
-        */
-        console.log(s,pos)
-        this.areas[num].scale.set(s)
-        this.areas[num].position = pos
-        this.currentBounds = this.currentArea.getBounds()
-        //        console.log("Bounds:",this.currentBounds);
-    }
-    setNewPositionAndScale(num, newx, newy) {
-        this.areas[num].x = newx;
-        this.areas[num].y = newy;
-        this.currentBounds = this.areas[num].getBounds()
-        //     console.log("Position:",this.areas[num].getBounds());
-    }
-    loadNew(num) {
-        let soundArea = JSON.parse(mergedSoundAreas[num]);
-        //let rect = soundArea.shapes[0][0].shape;
-        let shapeArray = soundArea.shapes.default;
-        //console.log(shapeArray)
-        if (datasets[num].rect === "true") {
-            let rect = shapeArray[0].shape;
-            //console.log(rect)
-            this.areas[num] = new PIXI.Graphics()
-                .beginFill(0xFFA500,0.2)
-                .drawRect(rect[0], rect[1], rect[2]-rect[0], rect[3]-rect[1])
-                .endFill();
-        } else {
-            this.areas[num] = shapeArray.reduce((graphics, shape, index, array) => {
-                if (index === 0) { 
-                    graphics.beginFill(0xFFA500);
-                    graphics.alpha = 0.2;
-                }
-                graphics.drawPolygon(shape.shape)
-                if (index === array.length - 1) {
-                    graphics.endFill();
-                    graphics.visible = true;
-                };
-                return graphics;
-            }, new PIXI.Graphics());
-        }
-    }
-}
-
-
-

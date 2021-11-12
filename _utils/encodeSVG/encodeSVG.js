@@ -1,4 +1,4 @@
-const legendsURL = '../data/mergedLegends.json';
+const legendsURL = '../../_data/mergedLegends.json';
 const parser = new DOMParser();
 const svgEncodedJSON = {};
 console.log("Loading Legends from " + legendsURL);
