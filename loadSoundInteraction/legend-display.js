@@ -53,9 +53,9 @@ class Molecule {
             this.y = newPosition.y;
             //            const local = graphics.toLocal(newPosition)
             //            console.log("global",newPosition)
-            soundeffects.crossfade.fade.rampTo(0,0.2)
-            if(soundareas.currentArea.containsPoint(newPosition)) {
-                soundeffects.crossfade.fade.rampTo(1,0.2)
+            soundeffects.crossfade.fade.rampTo(0,1.0)
+            if(soundareas.containsPoint(newPosition)) {
+                soundeffects.crossfade.fade.rampTo(1,1.0)
                 let np = getNormalizedPosition(newPosition)
                 soundeffects.changeParameters(np);
             }
@@ -89,7 +89,7 @@ class SoundEffects {
     }
     setNewBuffer(num) {
         const currentBuffer = new Tone.ToneAudioBuffer({
-            url:   "../data/audio/loops/"+num+".mp3",
+            url:   "../_data/audio/loops/"+num+".mp3",
             onload: () => {
 
                 this.grainplayer.buffer = currentBuffer; 
@@ -138,37 +138,16 @@ class SoundEffects {
 }
 class SoundInteractionArea {
     constructor() {
-        this.areas = {};
+        this.areaContainer = new PIXI.Container();
     }
     setNew(num,s,pos) {
-        if(num in this.areas) {
-            this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num,s,pos)
-        }
-        else {
-            this.loadNew(num)
-            this.currentArea = this.areas[num];
-            this.setInitialPositionAndScale(num,s,pos)
-        }
+        this.loadNew(num)
+        this.setInitialPositionAndScale(num,s,pos)
     }
     setInitialPositionAndScale(num,s,pos) {
-        /*        let bounds = this.areas[num].getBounds()
-        let scale=(window.innerWidth-200)/bounds.width;
-        this.areas[num].scale.set(scale*0.75)
-        let newBounds = this.areas[num].getBounds()
-        let startx = this.areas[num].x - newBounds.x+100;
-        let starty = this.areas[num].y - newBounds.y+100;
-        this.areas[num].startx = startx;
-        this.areas[num].starty = starty;
-        this.areas[num].x = startx;
-        this.areas[num].y = starty;
-
-        */
-        console.log(s,pos)
-        this.areas[num].scale.set(s)
-        this.areas[num].position = pos
-        this.currentBounds = this.areas[num].getBounds()
-        //        console.log("Bounds:",this.currentBounds);
+        this.areaContainer.scale.set(s)
+        this.areaContainer.position = pos
+        this.currentBounds = this.areaContainer.getBounds()
     }
     setNewPositionAndScale(num, newx, newy) {
         this.areas[num].x = newx;
@@ -177,41 +156,49 @@ class SoundInteractionArea {
         //     console.log("Position:",this.areas[num].getBounds());
     }
     loadNew(num) {
+        this.areaContainer.removeChildren()
         let soundArea = JSON.parse(mergedSoundAreas[num]);
         //let rect = soundArea.shapes[0][0].shape;
-        let shapeArray = soundArea.shapes.default;
+        let shapeArray = soundArea.shapes;
         //console.log(shapeArray)
-        if (datasets[num].rect === "true") {
-            let rect = shapeArray[0].shape;
-            //console.log(rect)
-            this.areas[num] = new PIXI.Graphics()
-                .beginFill(0xFFA500,0.2)
-                .drawRect(rect[0], rect[1], rect[2]-rect[0], rect[3]-rect[1])
-                .endFill();
-        } else {
-            this.areas[num] = shapeArray.reduce((graphics, shape, index, array) => {
-                if (index === 0) { 
-                    graphics.beginFill(0xFFA500);
-                    graphics.alpha = 0.2;
-                }
-                graphics.drawPolygon(shape.shape)
-                if (index === array.length - 1) {
-                    graphics.endFill();
-                    graphics.visible = true;
-                };
-                return graphics;
-            }, new PIXI.Graphics());
+        for ( const shape in shapeArray) {
+            console.log(shape);
+        let s = shapeArray[shape].reduce((graphics, shape, index, array) => {
+            if (index === 0) { 
+                graphics.beginFill(0xFFA500);
+                graphics.alpha = 0.2;
+            }
+            graphics.drawPolygon(shape.shape)
+            if (index === array.length - 1) {
+                graphics.endFill();
+                graphics.visible = true;
+            };
+            return graphics;
+        }, new PIXI.Graphics());
+        this.areaContainer.addChild(s)
         }
+ 
+    }
+    containsPoint(pos) {
+        let shapeArray = this.areaContainer.children; 
+        let contains = false;
+        for (const shape in shapeArray) {
+            if (shapeArray[shape].containsPoint(pos)){
+                contains = true;
+                return contains
+            }
+        }
+        return contains
     }
 }
 
 const molecule = new Molecule();
 const soundareas = new SoundInteractionArea();
 const soundeffects = new SoundEffects();
-let mergedSoundURL = '../data/mergedSoundAreas.json';
-let mergedCsvURL = '../data/csv/mergedCsvData.json';
-let legendsURL = '../data/encodedSVG.json';
-let dataURL = '../data/dataSummary.json';
+let mergedSoundURL = '../_data/mergedSoundAreas.json';
+let mergedCsvURL = '../_data/csv/mergedCsvData.json';
+let legendsURL = '../_data/encodedSVG.json';
+let dataURL = '../_data/dataSummary.json';
 let buffers = {};
 
 $(document).ready(function() {
@@ -237,7 +224,7 @@ $(document).ready(function() {
         mergedLegends = data;
         console.log('Loaded Legend files');
     });
-    let _url = '../data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
+    let _url = '../_data/images/SCROLL_cs6_ver23_APP_final_150ppi-LOW-';
     PIXI.Loader.shared.add(_url+'01-or8.png').load(() => {
         let scroll_01 = new PIXI.Sprite(PIXI.Loader.shared.resources[_url+'01-or8.png'].texture);
         mainScrollScale = app.screen.height/scroll_01.height;
@@ -259,15 +246,9 @@ $("#m").on("change", function() {
         app.stage.removeChildren();
         $("p").text(datasets[i].title);
         if(datasets[i].hasOwnProperty("popdimensions")) {
-
-            let soundArea = JSON.parse(mergedSoundAreas[i]);
-            if(!$.isEmptyObject(soundArea)) {
                 loadLegend(i)
                 soundeffects.setNewBuffer(i);
                 app.stage.addChild(molecule.moleculeContainer);
-            } else {
-                $("p").text(i + datasets[i].title + " has no soundarea defined");
-            }
         } else {
             $("p").text(i + datasets[i].title + " has no popdimensions");
         }
@@ -307,7 +288,7 @@ const loadLegend = (id) => {
                 app.stage.addChild(legend);
                 showLegend(id,legend,dim);
                 soundareas.setNew(id,app.screen.height/623.5,legend.position);
-                app.stage.addChild(soundareas.currentArea)
+                app.stage.addChild(soundareas.areaContainer)
             }
             legendLoaded = true;
         });
@@ -328,8 +309,6 @@ const showLegend = (number,legend,dim) => {
     _height = _height*s;
     legend.x -= (_x -app.screen.width/2 + _width/2)
     legend.y -= (_y - app.screen.height/2 + _height/2)
-    //    app.stage.position = new PIXI.Point(-1*_x +app.screen.width/2 - _width/2 , -1*_y + app.screen.height/2 - _height/2 )
-//    app.stage.scale.set(1/10,1/10)
 }
 
 
