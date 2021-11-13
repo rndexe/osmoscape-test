@@ -1,0 +1,23 @@
+{
+  "7": {
+    "title": "Co2 Emission through the years",
+    "legendpath": "../_data/legends/07_legend.png",
+    "maskpath": "../_data/legends/07_mask_shape",
+    "soundareapath": "../_data/legends/07_sound_shape",
+    "position":    {
+        "x": 1.8516,
+        "y": 0,
+        "width": 1.7265,
+        "height": 0.7366
+      }
+  },
+  "8": {
+    "title": "Global sea surface temperature"
+  },
+  "9": {
+    "title": "Bay of Bengal & Arabian Sea SST"
+  },
+  "11": {
+    "title": "Rain pH and Co2"
+  }
+}
