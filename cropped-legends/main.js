@@ -9,7 +9,7 @@ const app = new PIXI.Application({
 
 let datasets;
 document.body.appendChild(app.view);
-let backgroundContainer,legendContainer;
+let backgroundContainer,allLegendContainer,maskContainer;
 let mainScrollWidth;
 let mainScrollScale;
 $(document).ready(function() {
@@ -55,6 +55,8 @@ const loadLegends = () => {
         .then(res => res.json())
         .then(data => {
             allLegendContainer = new PIXI.Container();            
+            maskContainer = new PIXI.Container();           
+            maskContainer.sortableChildren = true;
             for (const id in data) {
                 let legend = data[id]
                 let legendCtr = new PIXI.Container();            
@@ -75,16 +77,19 @@ const loadLegends = () => {
                             //legendSprite.interactive = true; 
 
                             let mask = new PIXI.Graphics();
+                            mask.zIndex = legend.zorder;
                             fetch(legend.maskpath)
                                 .then(res => res.json())
                                 .then(data => {
 
                                     mask.beginFill(0xFFA500);
                                     mask.lineStyle(1, 0xFF0000);
-                                    mask.alpha = 0.2;
+                                    mask.alpha = 0.1;
                                     let maskScale = app.screen.height/623.5
                                     mask.scale.set(maskScale, maskScale);
-                                    mask.x += (500*maskScale);
+                                    // this 500 is also to shift the masks to appropriate locations, difference between width of background and mask.svg
+                                    // will be lesser/different for -1,0 and 64 datasets
+                                    mask.x = (495*maskScale);
                                     mask.interactive = true;
                                     mask.buttonMode = true;
                                     
@@ -95,15 +100,15 @@ const loadLegends = () => {
                                     mask.on('pointerover',()=> {
                                         backgroundContainer.alpha = 0.1
                                         legendSprite.alpha=1;
-                                        mask.alpha = 0;
+                                        maskContainer.alpha = 0;
                                     });
 
                                     mask.on('pointerout',()=> {
                                         backgroundContainer.alpha = 1
                                         legendSprite.alpha=0;
-                                        mask.alpha = 0.2;
+                                        maskContainer.alpha = 1;
                                     });
-                                    allLegendContainer.addChild(mask)
+                                    maskContainer.addChild(mask)
                                 });
                             legendCtr.addChild(legendSprite);
                         }
@@ -113,5 +118,6 @@ const loadLegends = () => {
                 app.stage.addChild(legendCtr)
             }
             app.stage.addChild(allLegendContainer)
+            app.stage.addChild(maskContainer)
         })
 }

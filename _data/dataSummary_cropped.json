@@ -4,6 +4,7 @@
     "legendpath": "../_data/legends/07_legend.png",
     "maskpath": "../_data/legends/07_mask",
     "soundareapath": "../_data/legends/07_sound_shape",
+    "zorder" : 100,
     "position": {
       "x": 653.52,
       "y": -1.8,
@@ -16,6 +17,7 @@
     "legendpath": "../_data/legends/08_legend.png",
     "maskpath": "../_data/legends/08_mask",
     "soundareapath": "../_data/legends/08_sound_shape",
+    "zorder" : 200,
     "position": {
      "x": 734.886,
       "y": 193.3,
@@ -27,6 +29,7 @@
     "title": "Bay of Bengal & Arabian Sea SST",
     "legendpath": "../_data/legends/09_legend.png",
     "maskpath": "../_data/legends/09_mask",
+    "zorder" : 400,
     "position": {
      "x": 1529.1,
       "y": 158.8,
@@ -38,6 +41,7 @@
     "title": "Rain pH and Co2",
     "legendpath": "../_data/legends/11_legend.png",
     "maskpath": "../_data/legends/11_mask",
+    "zorder" : 300,
     "position": {
      "x": 1666.49,
       "y": 20.35,
