@@ -54,40 +54,64 @@ const loadLegends = () => {
     fetch("../_data/dataSummary_cropped.json")
         .then(res => res.json())
         .then(data => {
-            legendContainer = new PIXI.Container();            
+            allLegendContainer = new PIXI.Container();            
             for (const id in data) {
                 let legend = data[id]
+                let legendCtr = new PIXI.Container();            
                 if(legend.hasOwnProperty('legendpath')){
                     let legendTexture = PIXI.Texture.from(legend.legendpath);
                     let legendLoaded = false;
                     legendTexture.on('update', () => {
                         if (!legendLoaded) {
                             let legendSprite = new PIXI.Sprite.from(legendTexture)
-                            let legendScale = (legend.position.height*app.screen.height/legendTexture.height);
+                            let legendRefHeight = (legend.position.height/623.5)
+                            let legendScale = (legendRefHeight/legendTexture.height)*app.screen.height;
                             legendSprite.scale.set(legendScale,legendScale)
-                            legendSprite.x = legend.position.x*app.screen.height
-                            legendSprite.y = legend.position.y*app.screen.height
+                            // 501 here is the difference between the width of background and legend.svg at the height of 623.5
+                            // it'd be lesser for -1,0 and 64
+                            legendCtr.x = ((legend.position.x+501)/623.5)*app.screen.height
+                            legendCtr.y = (legend.position.y/623.5)*app.screen.height
                             legendSprite.alpha=0
-                            legendSprite.interactive = true;
+                            //legendSprite.interactive = true; 
 
-                            legendSprite.on('pointerover',()=> {
-                                backgroundContainer.alpha = 0.1
-                                legendSprite.alpha=1;
-                            });
-                            
-                            legendSprite.on('pointerout',()=> {
-                                backgroundContainer.alpha = 1
-                                legendSprite.alpha=0;
-                            });
-                            
-                            legendContainer.addChild(legendSprite);
+                            let mask = new PIXI.Graphics();
+                            fetch(legend.maskpath)
+                                .then(res => res.json())
+                                .then(data => {
+
+                                    mask.beginFill(0xFFA500);
+                                    mask.lineStyle(1, 0xFF0000);
+                                    mask.alpha = 0.2;
+                                    let maskScale = app.screen.height/623.5
+                                    mask.scale.set(maskScale, maskScale);
+                                    mask.x += (500*maskScale);
+                                    mask.interactive = true;
+                                    mask.buttonMode = true;
+                                    
+                                    for (let s of data.shapes){
+                                        mask.drawPolygon(s.shape);
+                                    }
+
+                                    mask.on('pointerover',()=> {
+                                        backgroundContainer.alpha = 0.1
+                                        legendSprite.alpha=1;
+                                        mask.alpha = 0;
+                                    });
+
+                                    mask.on('pointerout',()=> {
+                                        backgroundContainer.alpha = 1
+                                        legendSprite.alpha=0;
+                                        mask.alpha = 0.2;
+                                    });
+                                    allLegendContainer.addChild(mask)
+                                });
+                            legendCtr.addChild(legendSprite);
                         }
                         legendLoaded = true;
                     });
                 }
+                app.stage.addChild(legendCtr)
             }
-            app.stage.addChild(legendContainer)
+            app.stage.addChild(allLegendContainer)
         })
-                                legendSprite.x=app.stage.position.x+app.screen.width/2;
-                                legendSprite.x=app.stage.position.x+app.screen.width/2;
 }

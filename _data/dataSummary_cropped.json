@@ -2,22 +2,47 @@
   "7": {
     "title": "Co2 Emission through the years",
     "legendpath": "../_data/legends/07_legend.png",
-    "maskpath": "../_data/legends/07_mask_shape",
+    "maskpath": "../_data/legends/07_mask",
     "soundareapath": "../_data/legends/07_sound_shape",
-    "position":    {
-        "x": 1.8516,
-        "y": 0,
-        "width": 1.7265,
-        "height": 0.7366
-      }
+    "position": {
+      "x": 653.52,
+      "y": -1.8,
+      "width": 1076.48,
+      "height": 459.9
+    }
   },
   "8": {
-    "title": "Global sea surface temperature"
+    "title": "Global sea surface temperature",
+    "legendpath": "../_data/legends/08_legend.png",
+    "maskpath": "../_data/legends/08_mask",
+    "soundareapath": "../_data/legends/08_sound_shape",
+    "position": {
+     "x": 734.886,
+      "y": 193.3,
+      "width": 1018.61,
+      "height": 427.13
+    }
   },
   "9": {
-    "title": "Bay of Bengal & Arabian Sea SST"
+    "title": "Bay of Bengal & Arabian Sea SST",
+    "legendpath": "../_data/legends/09_legend.png",
+    "maskpath": "../_data/legends/09_mask",
+    "position": {
+     "x": 1529.1,
+      "y": 158.8,
+      "width": 612.35,
+      "height": 450.5
+    }
   },
   "11": {
-    "title": "Rain pH and Co2"
+    "title": "Rain pH and Co2",
+    "legendpath": "../_data/legends/11_legend.png",
+    "maskpath": "../_data/legends/11_mask",
+    "position": {
+     "x": 1666.49,
+      "y": 20.35,
+      "width": 674.12,
+      "height": 620.289
+    }
   }
 }
