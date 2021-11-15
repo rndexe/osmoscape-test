@@ -48,5 +48,19 @@
       "width": 674.12,
       "height": 620.289
     }
+  },
+  "13": {
+    "title": "Subsaharan desert",
+    "desc": "The study uses satellite data to monitor the dust movement pattern from Sahara Desert to the Amazon forest between 2007 and 2013. The study finds that the dust transported by wind over large distances contains phosphorus, which is an essential nutrient for soil. Some of the phosphorus gets distributed over Amazon’s soil, which is not rich in the nutrient. It acts as a natural fertiliser for growth of the forest. The sound is represented by sampled recording of a shovel in sand, manipulated to evoke the desert wind.",
+    "legendpath": "../_data/legends/13_legend.png",
+    "maskpath": "../_data/legends/13_mask",
+    "zorder" : 500,
+    "position": {
+     "x": 1302.33,
+      "y": -201.436,
+      "width": 1437.17,
+      "height": 1026.64
+    }
   }
+
 }
