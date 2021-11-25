@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Osmoscape molecule</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <script src="../_libs/Tone.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/Draggable.min.js"></script>
+
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <button style="display:none">Play</button>
+        <div class="legend">
+            <div class="left top absolute">
+                <div>
+                    <label for="loops">Choose a loop:</label>
+                    <select name="loops" id="loops"></select>
+                </div>
+                <div>
+                    <label>Effect chain:
+                        <input type="text" value="distortion" id="ec" size="20">
+                    </label>
+                </div>
+                <div>
+                    <label>Vibrato freq:
+                        <input type="text" value="0" id="vfmn" size="5">
+                        <input type="text" value="10" id="vfmx" size="5">
+                    </label>
+                </div>
+                <div>
+                    <label>Vibrato depth:
+                        <input type="text" value="0.5" id="vdmn" size="5">
+                        <input type="text" value="1" id="vdmx" size="5">
+                    </label>
+                </div>
+                <div>
+                    <label>Pitch:
+                        <input type="text" value="-6" id="pmn" size="5">
+                        <input type="text" value="6" id="pmx" size="5">
+                    </label>
+                </div>
+                <div>
+                    <label>Distortion:
+                        <input type="text" value="0.5" id="rwmn" size="5">
+                        <input type="text" value="1" id="rwmx" size="5">
+                    </label>
+                </div>
+            </div>
+            <img class="draggable" src="../_data/images/osmo.svg"/>
+            <div id="hitArea"></div>
+            <div class="right top absolute">
+                <p>
+                decay : <span id="decay"></span>
+                </p>
+                <p>
+                wet.value : <span id="wet"></span>
+                </p>
+                <p>
+                detune: <span id="detune"></span>
+                </p>
+                <p>
+                Vibrato-freq: <span id="frequency"></span> 
+                </p>
+                <p>
+                Vibrato-depth: <span id="depth"></span>
+                </p>
+                <p>
+                pitch: <span id="pitch"></span>
+                </p>
+            </div>
+        </div>
+        <script type="text/javascript" src="effect-test.js"></script>
+
+    </body>
+</html>

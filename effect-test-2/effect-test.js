@@ -18,7 +18,7 @@ const buffers = new Tone.ToneAudioBuffers({
         $("button").show();
         console.log("loaded");
     },
-    baseUrl: "../data/audio/loops/"
+    baseUrl: "../_data/audio/loops/"
 });
 
 const crossfade = new Tone.CrossFade({
@@ -28,12 +28,10 @@ const reverb = new Tone.Reverb();
 const delay = new Tone.Delay();
 const vibrato = new Tone.Vibrato();
 const pitchshift = new Tone.PitchShift();
-const grainplayer = new Tone.GrainPlayer({
-    url : "../data/audio/loops/-1.mp3",
-    loop : true,
-});
+const distortion = new Tone.Distortion();
+const osc = new Tone.Oscillator(440,"sawtooth");
 const player = new Tone.Player({
-    url : "../data/audio/loops/-1.mp3",
+    url : "../_data/audio/loops/-1.mp3",
     loop : true,
 }).connect(crossfade.a);
 //grainplayer.chain(delay,vibrato,pitchshift,crossfade.b);
@@ -43,7 +41,7 @@ $(document).ready(function(){
     init(); 
     $("button").click (function() {
         Tone.start();
-        grainplayer.start();
+        osc.start();
         player.start();
         $("button").hide();
         $(".legend").show();
@@ -64,16 +62,8 @@ $(document).ready(function(){
                 crossfade.fade.rampTo(0,1.0)
             }
             else {
-                crossfade.fade.rampTo(1,1.0)
-                reverb.decay = (position.x)*
-                    ($("#rdmx").val()-$("#rdmn").val())+$("#rdmn").val()*1
-                reverb.wet.rampTo(position.y*
-                    ($("#rwmx").val()-$("#rwmn").val())+$("#rwmn").val()*1
-                    ,0.1);
+                crossfade.fade.rampTo(0.05,1.0)
 
-                delay.delayTime.rampTo(position.avg*
-                    ($("#dtmx").val()-$("#dtmn").val())+$("#dtmn").val()*1
-                    ,0.1);
 
                 vibrato.frequency.rampTo(position.y*
                     ($("#vfmx").val()-$("#vfmn").val())+$("#vfmn").val()*1
@@ -85,34 +75,17 @@ $(document).ready(function(){
                 pitchshift.pitch = position.y*
                     ($("#pmx").val()-$("#pmn").val())+$("#pmn").val()*1
 
-                grainplayer.detune = position.x *
-                    ($("#dmx").val()-$("#dmn").val())+$("#dmn").val()*1;
-                grainplayer.grainSize= position.y*
-                    ($("#gsmx").val()-$("#gsmn").val())+$("#gsmn").val()*1;
-                grainplayer.loopStart = position.y*
-                    ($("#lstmx").val()-$("#lstmn").val())+$("#lstmn").val()*1;
-                grainplayer.loopEnd = position.x*
-                    ($("#lemx").val()-$("#lemn").val())+$("#lemn").val()*1;
+                distortion.distortion = position.x*
+                    ($("#rwmx").val()-$("#rwmn").val())+$("#rwmn").val()*1
 
-                $("#decay").text(reverb.decay.toFixed(2));
-                $("#wet").text(reverb.wet.value.toFixed(2));
-                $("#delayTime").text(delay.delayTime.value.toFixed(2));
-                $("#detune").text(grainplayer.detune.toFixed(2));
-                $("#grainSize").text(grainplayer.grainSize.toFixed(2));
-                $("#loopstart").text(grainplayer.loopStart.toFixed(2));
-                $("#loopend").text(grainplayer.loopEnd.toFixed(2));
-                $("#frequency").text(vibrato.frequency.value.toFixed(2));
-                $("#depth").text(vibrato.depth.value.toFixed(2));
-                $("#pitch").text(pitchshift.pitch.toFixed(2));
             }
         })
     }
     );
 
     $('#loops').change(function() {
-        grainplayer.buffer = buffers.get($(this).val().toString());
         player.buffer = buffers.get($(this).val().toString());
-        grainplayer.restart();
+        osc.restart();
         player.restart();
     });
     $('#ec').change(function() {
@@ -182,23 +155,21 @@ function getNormalizedPosition() {
 
 const effects = {
 
-    "delay" : delay,
-    "reverb" : reverb,
     "vibrato" : vibrato,
     "pitchshift" : pitchshift,
+    "distortion" : distortion,
 
 }
 function getEffectChainFromInput() {
     
     const effectNameArray = $("#ec").val().split(',');
     const effectArray = effectNameArray.map(i => effects[i])
-    
-    grainplayer.connect(effectArray[0]);
-    for (let i = 0; i < effectArray.length-1; i++) {
-        console.log(effectArray[i].name,"connected to",effectArray[i+1].name);
-        effectArray[i].connect(effectArray[i+1])
-    }
-    effectArray[effectArray.length-1].connect(crossfade.b);
+   
+    console.log(effectNameArray);
+    console.log(effectArray[0].name);
+    osc.connect(effectArray[0]);
+    effectArray[0].connect(crossfade.b);
+
 }
 
 function throttled(delay, fn) {
