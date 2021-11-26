@@ -128,10 +128,10 @@ class SoundEffects {
         this.vibrato.frequency.rampTo(np.ny * this.freqRange + this.freqMin,0.1);
         this.vibrato.depth.rampTo(np.nx * this.depthRange + this.depthMin,0.1);
 
-        this.pitchshift.pitch = np.ny * this.pitchRange + this.pitchMin;
+        this.pitchshift.pitch = np.navg * this.pitchRange + this.pitchMin;
 
         this.grainplayer.detune = np.nx * this.detuneRange + this.detuneMin;
-        this.grainplayer.grainSize = np.ny * this.grainSizeRange + this.grainSizeMin; 
+        this.grainplayer.grainSize = np.nx * this.grainSizeRange + this.grainSizeMin; 
         this.grainplayer.loopStart = np.ny * this.loopStartRange + this.loopStartMin;
         this.grainplayer.loopEnd = np.nx * this.loopEndRange + this.loopEndMin;
     }
