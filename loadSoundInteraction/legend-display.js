@@ -10,6 +10,7 @@ const app = new PIXI.Application({
 let datasets,mergedSoundAreas,mergedLegends;
 let mainScrollScale;
 let mainScrollWidth;
+let includeSpecialCase = true;
 document.body.appendChild(app.view);
 
 class Molecule {
@@ -156,8 +157,13 @@ class SoundInteractionArea {
         //     console.log("Position:",this.areas[num].getBounds());
     }
     loadNew(num) {
+        let splid = num;
+        let hasSpecialFile = datasets[num].hasOwnProperty("speciallegend")
+        if(includeSpecialCase && hasSpecialFile)
+            splid = num + '_spl'
+        //
         this.areaContainer.removeChildren()
-        let soundArea = JSON.parse(mergedSoundAreas[num]);
+        let soundArea = JSON.parse(mergedSoundAreas[splid]);
         //let rect = soundArea.shapes[0][0].shape;
         let shapeArray = soundArea.shapes;
         //console.log(shapeArray)
@@ -246,7 +252,7 @@ $("#m").on("change", function() {
         app.stage.removeChildren();
         $("p").text(datasets[i].title);
         if(datasets[i].hasOwnProperty("popdimensions")) {
-                loadLegend(i)
+                loadLegend(i, datasets[i].hasOwnProperty("speciallegend"))
                 soundeffects.setNewBuffer(i);
                 app.stage.addChild(molecule.moleculeContainer);
         } else {
@@ -270,11 +276,12 @@ const getNormalizedPosition = (pos) => {
     return np;
 }
 
-const loadLegend = (id) => {
-
+const loadLegend = (id, hasSpecialFile) => {
+    let splid = id;
+    if(includeSpecialCase && hasSpecialFile)
+        splid = id + '_spl'
     if (datasets.hasOwnProperty(id)) {
-        console.log('Loading data for : ' + id);
-        let legenddata = mergedLegends[id];
+        let legenddata = mergedLegends[splid];
         let dim = datasets[id].popdimensions;
         let resource = new PIXI.SVGResource (legenddata, {scale: 1.5});
         let legendTexture = PIXI.Texture.from(resource);
