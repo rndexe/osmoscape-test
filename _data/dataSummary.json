@@ -5,7 +5,7 @@
     "desc": "Water bends, gyrates, vibrates, elongates, shortens, pulls and pushes. Nearly impossible to pin down, the structure of the water molecule has been hotly debated for decades.  It doesn’t follow the rules of chemistry. It moves against the force of gravity. It changes its form, it changes its shape. Its  solid form floats on its liquid form, it takes the shape of the container it is kept in, it expands when cooled. It is one of the hardest substances to understand, yet it is fundamental to our existence. It is in the background, it is in the foreground. Life needs water, yet water itself is both animate and inanimate. And therefore water structure is everything; it dictates the physics, therefore the chemistry, therefore the biology, therefore life as we know it. A molecule of water, the smallest unit it can be broken down to, has two atoms of hydrogen and one of oxygen. It is the way the oxygen and hydrogen atoms interact that makes water unique.",
     "sounddesc":"The sound is a synthesized representation of water. Two synthesizers, one representing oxygen and the other hydrogen, play a series of notes derived from the number of electrons in the shell of each element (1 for H and 2, 6 for O). ",
     "legendpath": "../../assets/data/legends/-1_water_structure_legend-01-Simplified-new.svg",
-    "maskpath": "../../assets/data/legends/-1_water_structure_mask-01-Simplified.svg",
+    "maskpath": "../../assets/data/legends/-1_water_structure_mask-01-Simplified-new.svg",
     "order": "back",
     "popdimensions": [
       {
@@ -25,13 +25,13 @@
     "sounddesc":"The sound is represented by evoking typing, the pitch and rhythm of which are determined by a human genetic sequence in unison with a synthesized interpretation of human chromosome 1, manipulated.",
     "legendpath": "../../assets/data/legends/0_human_dna_legend-01-Simplified.svg",
     "maskpath": "../../assets/data/legends/0_human_dna_mask-01-Simplified.svg",
-    "speciallegend": "../../assets/data/legends/0_human_dna_legend_specialcase.svg",
-    "specialmask": "../../assets/data/legends/0_human_dna_mask_specialcase.svg",
+    "speciallegend": "../../assets/data/legends/0_human_dna_legend_specialcase_resized.svg",
+    "specialmask": "../../assets/data/legends/0_human_dna_mask_specialcase_resized.svg",
     "order": "front",
     "popdimensions": [
       {
-        "x": 0,
-        "y": 0,
+        "x": 408.8699999999999,
+        "y": 277.5,
         "width": 883,
         "height": 503
       }
