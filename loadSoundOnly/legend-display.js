@@ -7,6 +7,132 @@ const app = new PIXI.Application({
     view: canvas
 });
 
+const effectData = {
+
+    "30" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 36
+        },
+        "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.8
+        }
+    },
+    "33" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "35" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "36" : {
+        "pitchshift" : {
+            "min" : -48,
+            "max" : -12
+        }
+    },
+    "37" : {
+        "pitchshift" : {
+            "min" : -18,
+            "max" : 6
+        }
+    },
+    "38" : {
+        "pitchshift" : {
+            "min" : -18,
+            "max" : 6
+        }
+    },
+    "40" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : -12
+        },
+        "invertY" : true
+    },
+    "41" : {
+        "pitchshift" : {
+            "min" : -24,
+            "max" : -12
+        },
+        "invertY" : true
+    },
+    "42" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : -24
+        },
+         "detune" : {
+            "min" : -12,
+            "max" : -12
+        },
+        "grainsize" : {
+            "min" : 3,
+            "max" : 0.8
+        },
+        "invertY" : true
+    },
+    "43" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "44" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 0
+        },
+        "invertY" : true
+    },
+    "45" : {
+        "invertY" : true
+    },
+    "46" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "48" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "52" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        }
+    },
+    "53" : {
+        "invertY" : true
+    },
+    "55" : {
+        "invertY" : true
+    },
+    "58" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 12
+        },
+        "invertY" : true
+    },
+    "63" : {
+        "pitchshift" : {
+            "min" : -36,
+            "max" : 0
+        }
+    }
+
+}
 let datasets,mergedSoundAreas,mergedLegends;
 let mainScrollScale;
 let mainScrollWidth;
@@ -75,7 +201,6 @@ class SoundEffects {
         this.delay = new Tone.Delay();
 
         this.makeEffectChain();
-        this.setDefaultParameterRange();
     }
     makeEffectChain() {
         this.player.connect(this.crossfade.a)
@@ -94,7 +219,8 @@ class SoundEffects {
 
                 this.grainplayer.buffer = currentBuffer; 
                 this.player.buffer = currentBuffer;
-
+                this.id = num;
+                this.setDefaultParameterRange();
                 this.player.start();
                 this.grainplayer.start();
             }
@@ -103,35 +229,75 @@ class SoundEffects {
     }
     setDefaultParameterRange() {
 
-        this.delayRange = (0.6 - 0.01);
+/*        this.delayRange = (0.6 - 0.01);
         this.delayMin = 0.01;
         this.freqRange = (10 - 0.3);
         this.freqMin = 0.3;
         this.depthRange = (1 - 0);
         this.depthMin = 0;
-        this.pitchRange = (24 + 24);
-        this.pitchMin = -24;
-        this.detuneRange = (24 + 24);
-        this.detuneMin = -24;
-        this.grainSizeRange = (3 - 0.01);
-        this.grainSizeMin = 0.01;
-        this.loopStartRange = this.grainplayer.buffer.length/2;
-        this.loopStartMin = 0;
-        this.loopEndRange = this.grainplayer.buffer.length/2;
-        this.loopEndMin = this.grainplayer.buffer.length/2;
 
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("pitchshift")) {
+            this.pitchRange = (effectData[this.id].pitchshift.max - effectData[this.id].pitchshift.min);
+            this.pitchMin = effectData[this.id].pitchshift.min;
+        } else {
+            this.pitchRange = (24 + 24);
+            this.pitchMin = -24;
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("detune")) {
+            this.detuneRange = (effectData[this.id].detune.max - effectData[this.id].detune.min);
+            this.detuneMin = effectData[this.id].detune.min;
+
+        } else {
+            this.detuneRange = (24 + 24);
+            this.detuneMin = -24;
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("grainsize")) {
+            this.grainSizeRange = (effectData[this.id].grainsize.max - effectData[this.id].grainsize.min);
+            this.grainSizeMin = effectData[this.id].grainsize.min;
+        } else {
+            this.grainSizeRange = (3 - 0.01);
+            this.grainSizeMin = 0.01;
+        }
+        this.loopStartRange = this.grainplayer.buffer.duration/2;
+        this.loopStartMin = 0;
+        this.loopEndRange = this.grainplayer.buffer.duration/2;
+        this.loopEndMin = this.grainplayer.buffer.duration/2;
+*/
+        this.delayRange = ($("#dtmx").val()-$("#dtmn").val())
+        this.delayMin = $("#dtmn").val()
+
+        this.freqRange = ($("#vfmx").val()-$("#vfmn").val())
+        this.freqMin = ($("#vfmn").val())
+        this.depthRange = ($("#vdmx").val()-$("#vdmn").val())
+        this.depthMin = $("#vdmn").val()
+
+        this.pitchRange = ($("#pmx").val()-$("#pmn").val())
+        this.pitchMin = $("#pmn").val()
+
+        this.detuneRange = ($("#dmx").val()-$("#dmn").val())
+        this.detuneMin = $("#dmn").val()
+        this.grainSizeRange = ($("#gsmx").val()-$("#gsmn").val())
+        this.grainSizeMin = $("#gsmn").val();
+        this.loopStartRange = this.grainplayer.buffer.duration/2;
+        this.loopStartMin = 0;
+        this.loopEndRange = this.grainplayer.buffer.duration/2;
+        this.loopEndMin = this.grainplayer.buffer.duration/2;
     }
     changeParameters(np) {
 
-        this.delay.delayTime.rampTo(np.navg * this.delayRange + this.delayMin,0.1);
+        if ( effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("invertY")){
+            np.ny = 1.0 - np.ny;
+            np.navg = (np.nx+np.ny)/2;
+        }
+        this.delay.delayTime.rampTo(np.navg * this.delayRange + this.delayMin*1,0.1);
 
-        this.vibrato.frequency.rampTo(np.ny * this.freqRange + this.freqMin,0.1);
-        this.vibrato.depth.rampTo(np.nx * this.depthRange + this.depthMin,0.1);
+        this.vibrato.frequency.rampTo(np.ny * this.freqRange + this.freqMin*1,0.1);
+        this.vibrato.depth.rampTo(np.nx * this.depthRange + this.depthMin*1,0.1);
 
-        this.pitchshift.pitch = np.navg * this.pitchRange + this.pitchMin;
+        this.pitchshift.pitch = np.navg * this.pitchRange + this.pitchMin*1;
 
-        this.grainplayer.detune = np.nx * this.detuneRange + this.detuneMin;
-        this.grainplayer.grainSize = np.nx * this.grainSizeRange + this.grainSizeMin; 
+        this.grainplayer.detune = np.nx * this.detuneRange + this.detuneMin*1;
+        this.grainplayer.grainSize = np.nx * this.grainSizeRange + this.grainSizeMin*1; 
         this.grainplayer.loopStart = np.ny * this.loopStartRange + this.loopStartMin;
         this.grainplayer.loopEnd = np.nx * this.loopEndRange + this.loopEndMin;
     }
@@ -157,12 +323,12 @@ class SoundInteractionArea {
         this.areaContainer.x -= this.currentBounds.x
         this.areaContainer.y -= this.currentBounds.y
         this.areaContainer.y += 100
-        this.areaContainer.x += 100
-        
+        this.areaContainer.x += 200
+
 
         this.currentBounds = this.areaContainer.getBounds();
         console.log(this.currentBounds)
-        
+
         //console.log(this.areaContainer.x) 
     }
     setNewPositionAndScale(num, newx, newy) {
@@ -179,21 +345,21 @@ class SoundInteractionArea {
         //console.log(shapeArray)
         for ( const shape in shapeArray) {
             console.log(shape);
-        let s = shapeArray[shape].reduce((graphics, shape, index, array) => {
-            if (index === 0) { 
-                graphics.beginFill(0xFFA500);
-                graphics.alpha = 0.2;
-            }
-            graphics.drawPolygon(shape.shape)
-            if (index === array.length - 1) {
-                graphics.endFill();
-                graphics.visible = true;
-            };
-            return graphics;
-        }, new PIXI.Graphics());
-        this.areaContainer.addChild(s)
+            let s = shapeArray[shape].reduce((graphics, shape, index, array) => {
+                if (index === 0) { 
+                    graphics.beginFill(0xFFA500);
+                    graphics.alpha = 0.2;
+                }
+                graphics.drawPolygon(shape.shape)
+                if (index === array.length - 1) {
+                    graphics.endFill();
+                    graphics.visible = true;
+                };
+                return graphics;
+            }, new PIXI.Graphics());
+            this.areaContainer.addChild(s)
         }
- 
+
     }
     containsPoint(pos) {
         let shapeArray = this.areaContainer.children; 
@@ -211,7 +377,7 @@ class SoundInteractionArea {
 const molecule = new Molecule();
 const soundareas = new SoundInteractionArea();
 const soundeffects = new SoundEffects();
-let mergedSoundURL = '../_data/mergedSoundAreas.json';
+let mergedSoundURL = '../_data/mergedSoundAreas_mine.json';
 let mergedCsvURL = '../_data/csv/mergedCsvData.json';
 let legendsURL = '../_data/encodedSVG.json';
 let dataURL = '../_data/dataSummary.json';
@@ -262,11 +428,11 @@ $("#m").on("change", function() {
         app.stage.removeChildren();
         $("p").text(datasets[i].title);
         if(datasets[i].hasOwnProperty("popdimensions")) {
-                //loadLegend(i)
-                soundeffects.setNewBuffer(i);
-                app.stage.addChild(molecule.moleculeContainer);
-                soundareas.setNew(i,1,50);
-                app.stage.addChild(soundareas.areaContainer)
+            //loadLegend(i)
+            soundeffects.setNewBuffer(i);
+            app.stage.addChild(molecule.moleculeContainer);
+            soundareas.setNew(i,1,50);
+            app.stage.addChild(soundareas.areaContainer)
         } else {
             $("p").text(i + datasets[i].title + " has no popdimensions");
         }
@@ -274,6 +440,11 @@ $("#m").on("change", function() {
         $("p").text("No dataset for id number " + i);
         app.stage.removeChildren();
     }
+});
+$("#t").on("change", function() {
+    
+
+    soundeffects.setDefaultParameterRange();
 });
 
 const getNormalizedPosition = (pos) => {
