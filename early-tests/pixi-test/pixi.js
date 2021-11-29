@@ -1,17 +1,17 @@
 const app = new PIXI.Application({
-    width: window.innerWidth, height: window.innerHeight, backgroundColor: 0x6d7c80, resolution: window.devicePixelRatio || 1,
+    width: window.innerWidth, height: window.innerHeight, backgroundColor: 0xb3ced5, resolution: window.devicePixelRatio || 1,
     antialias: true,
 });
 document.body.appendChild(app.view);
 gsap.registerPlugin(PixiPlugin);
-const legendTexture = new PIXI.Texture.from('legend.svg')
-const legend = new PIXI.Sprite(legendTexture)
+//const legendTexture = new PIXI.Texture.from('legend.svg')
+//const legend = new PIXI.Sprite(legendTexture)
 const moleculeContainer = new PIXI.Container();
-const legendContainer = new PIXI.Container();
-legendContainer.addChild(legend);
+//const legendContainer = new PIXI.Container();
+//legendContainer.addChild(legend);
 moleculeContainer.interactive = true;
 moleculeContainer.buttonMode = true;
-app.stage.addChild(legendContainer);
+//app.stage.addChild(legendContainer);
 app.stage.addChild(moleculeContainer);
 
 // Create a new texture
@@ -30,6 +30,7 @@ moleculeContainer.addChild(molecule);
         .on('pointerup', onDragEnd)
         .on('pointerupoutside', onDragEnd)
         .on('pointermove', onDragMove);
+
 gsap.to(boundary.scale, {
     x: 1.2, y: 1.2, duration: 1, repeat: -1, ease: "back"
 });
@@ -40,25 +41,25 @@ gsap.to(boundary, {
 
 //moleculeContainer.pivot.x = moleculeContainer.width / 2;
 //moleculeContainer.pivot.y = moleculeContainer.height / 2;
-legend.anchor.set(0.5);
-legend.scale.set(1.2);
-legend.interactive = true;
-legend.hitArea = new PIXI.Circle(0,-30,150)
-const hitareagraphics = new PIXI.Graphics().lineStyle(1,0xFFFFFF,1).drawCircle(0,-30,150)
-legend.addChild(hitareagraphics)
+//legend.anchor.set(0.5);
+//legend.scale.set(1.2);
+//legend.interactive = true;
+//legend.hitArea = new PIXI.Circle(0,-30,150)
+//const hitareagraphics = new PIXI.Graphics().lineStyle(1,0xFFFFFF,1).drawCircle(0,-30,150)
+//legend.addChild(hitareagraphics)
 moleculeContainer.x = app.screen.width / 2;
 moleculeContainer.y = app.screen.height / 2;
-legendContainer.x = app.screen.width / 2;
-legendContainer.y = app.screen.height / 2;
+//legendContainer.x = app.screen.width / 2;
+//legendContainer.y = app.screen.height / 2;
 
-const sprites = new PIXI.ParticleContainer(10, {
+/*const sprites = new PIXI.ParticleContainer(10, {
     scale: true,
     position: true,
     rotation: true,
     uvs: true,
     alpha: true,
-});
-moleculeContainer.addChild(sprites);
+});*/
+//moleculeContainer.addChild(sprites);
 
 const particles = [];
     const dudeG = new PIXI.Graphics()
@@ -95,7 +96,7 @@ for (let i = 0; i < 10; i++) {
     // finally we push the dude into the maggots array so it it can be easily accessed later
     particles.push(dude);
 
-    sprites.addChild(dude);
+    //sprites.addChild(dude);
 }
 
 function onDragStart(event) {
@@ -119,10 +120,10 @@ function onDragMove() {
         this.x = newPosition.x;
         this.y = newPosition.y;
         //console.log(newPosition)
-        const local = legend.toLocal(newPosition)
-        if(legend.hitArea.contains(local.x,local.y)) {
-            console.log("molecule inside hitest")
-        }
+    //    const local = legend.toLocal(newPosition)
+    //    if(legend.hitArea.contains(local.x,local.y)) {
+    //        console.log("molecule inside hitest")
+    //    }
     }
 }
 
@@ -130,7 +131,7 @@ let tick = 0;
 
 app.ticker.add(() => {
     // iterate through the sprites and update their position
-    for (let i = 0; i < particles.length; i++) {
+    /*for (let i = 0; i < particles.length; i++) {
         const dude = particles[i];
         dude.scale.y = 0.95 + Math.sin(tick + dude.offset) * 0.05;
         dude.direction += dude.turningSpeed * 0.01;
@@ -141,5 +142,6 @@ app.ticker.add(() => {
     }
 
     // increment the ticker
-    tick += 0.1;
+    tick += 0.1;*/
+
 });

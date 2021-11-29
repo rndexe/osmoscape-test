@@ -8,8 +8,34 @@ const app = new PIXI.Application({
 });
 
 const effectData = {
-
-    "30" : {
+     "14" : {
+        "invertY" : true
+    },
+     "15" : {
+        "pitchshift" : {
+            "min" : 36,
+            "max" : -12
+        }
+    },
+      "16" : {
+        "pitchshift" : {
+            "min" : 36,
+            "max" : -12
+        }
+    },
+       "17" : {
+        "pitchshift" : {
+            "min" : 36,
+            "max" : -12
+        }
+    },
+     "19" : {
+        "invertY" : true
+    },
+      "24" : {
+        "invertY" : true
+    },
+   "30" : {
         "pitchshift" : {
             "min" : -36,
             "max" : 36
@@ -66,23 +92,51 @@ const effectData = {
     "42" : {
         "pitchshift" : {
             "min" : -36,
-            "max" : -24
+            "max" : -30
         },
-         "detune" : {
-            "min" : -12,
-            "max" : -12
+        "detune" : {
+            "min" : 0,
+            "max" : 24
         },
         "grainsize" : {
-            "min" : 3,
-            "max" : 0.8
+            "min" : 2,
+            "max" : 3
         },
-        "invertY" : true
+         "freq" : {
+            "min" : 0.3,
+            "max" : 1
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
     },
     "43" : {
+        "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.5
+        },
+        "detune" : {
+            "min" : -24,
+            "max" : 2
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 10
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 0.2
+        },
         "pitchshift" : {
-            "min" : -36,
-            "max" : 12
+            "min" : -24,
+            "max" : 7
+        },
+        "delay" : {
+            "min" : 0.01,
+            "max" : 0.8
         }
+ 
     },
     "44" : {
         "pitchshift" : {
@@ -106,32 +160,218 @@ const effectData = {
             "max" : 12
         }
     },
-    "52" : {
+     "50" : {
+         "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.5
+        },
+        "detune" : {
+            "min" : -40,
+            "max" : 10
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 2
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
         "pitchshift" : {
-            "min" : -36,
-            "max" : 12
-        }
-    },
-    "53" : {
-        "invertY" : true
-    },
-    "55" : {
-        "invertY" : true
-    },
-    "58" : {
-        "pitchshift" : {
-            "min" : -36,
-            "max" : 12
+            "min" : -10,
+            "max" : 0
+        },
+        "delay" : {
+            "min" : 0,
+            "max" : 1
         },
         "invertY" : true
     },
-    "63" : {
+    "52" : {
+          "grainsize" : {
+           "min" : 0.01,
+            "max" : 1
+        },
+        "detune" : {
+            "min" : -10,
+            "max" : 10
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 4
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 0.5
+        },
         "pitchshift" : {
-            "min" : -36,
+            "min" : -24,
+            "max" : 1
+        },
+        "delay" : {
+            "min" : 0,
+            "max" : 1
+        }
+    },
+    "53" : {
+         "grainsize" : {
+           "min" : 0.01,
+            "max" : 1
+        },
+        "detune" : {
+            "min" : -10,
+            "max" : 10
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 4
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : .01
+        },
+        "pitchshift" : {
+            "min" : -24,
+            "max" : 1
+        },
+        "delay" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "invertY" : true
+    },
+    "55" : {
+          "grainsize" : {
+            "min" : 0.01,
+            "max" : 2
+        },
+        "detune" : {
+            "min" : -5,
+            "max" : 24
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 4
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "pitchshift" : {
+            "min" : -24,
+            "max" : 30
+        },
+        "delay" : {
+            "min" : 0,
+            "max" : 0.05
+        },
+        "invertY" : true
+    },
+    "58" : {
+        "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.5
+        },
+        "detune" : {
+            "min" : -24,
+            "max" : 24
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 0.5
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "pitchshift" : {
+            "min" : -5,
+            "max" : 24
+        },
+        "delay" : {
+            "min" : 0.01,
+            "max" : 0.6
+        },
+        "invertY" : true
+    },
+     "60" : {
+        "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.5
+        },
+        "detune" : {
+            "min" : -24,
+            "max" : 24
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 0.5
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "pitchshift" : {
+            "min" : -5,
+            "max" : 24
+        },
+        "delay" : {
+            "min" : 0.01,
+            "max" : 0.6
+        }
+    },
+    "63" : {
+         "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.5
+        },
+        "detune" : {
+            "min" : -24,
+            "max" : 24
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 1.5
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "pitchshift" : {
+            "min" : -5,
+            "max" : 15
+        },
+        "delay" : {
+            "min" : 0.01,
+            "max" : 0.1
+        }
+    },
+    "64" : {
+         "grainsize" : {
+            "min" : 0.01,
+            "max" : 0.3
+        },
+        "detune" : {
+            "min" : -24,
+            "max" : 10
+        },
+        "freq" : {
+            "min" : 0.3,
+            "max" : 0.7
+        },
+        "depth" : {
+            "min" : 0,
+            "max" : 1
+        },
+        "pitchshift" : {
+            "min" : -3,
             "max" : 0
+        },
+        "delay" : {
+            "min" : 0.01,
+            "max" : 1
         }
     }
-
 }
 let datasets,mergedSoundAreas,mergedLegends;
 let mainScrollScale;
@@ -229,13 +469,27 @@ class SoundEffects {
     }
     setDefaultParameterRange() {
 
-/*        this.delayRange = (0.6 - 0.01);
-        this.delayMin = 0.01;
-        this.freqRange = (10 - 0.3);
-        this.freqMin = 0.3;
-        this.depthRange = (1 - 0);
-        this.depthMin = 0;
-
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("delay")) {
+            this.delayRange = (effectData[this.id].delay.max - effectData[this.id].delay.min);
+            this.delayMin = effectData[this.id].delay.min;
+        } else {
+            this.delayRange = (0.6 - 0.01);
+            this.delayMin = 0.01;
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("freq")) {
+            this.freqRange = (effectData[this.id].freq.max - effectData[this.id].freq.min);
+            this.freqMin = effectData[this.id].freq.min;
+        } else {
+            this.freqRange = (10 - 0.3);
+            this.freqMin = 0.3;
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("depth")) {
+            this.depthRange = (effectData[this.id].depth.max - effectData[this.id].depth.min);
+            this.depthMin = effectData[this.id].depth.min;
+        } else {
+            this.depthRange = (1 - 0);
+            this.depthMin = 0;
+        }
         if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("pitchshift")) {
             this.pitchRange = (effectData[this.id].pitchshift.max - effectData[this.id].pitchshift.min);
             this.pitchMin = effectData[this.id].pitchshift.min;
@@ -262,7 +516,9 @@ class SoundEffects {
         this.loopStartMin = 0;
         this.loopEndRange = this.grainplayer.buffer.duration/2;
         this.loopEndMin = this.grainplayer.buffer.duration/2;
-*/
+
+    }
+    setDefaultParameterRangeFromInput() {
         this.delayRange = ($("#dtmx").val()-$("#dtmn").val())
         this.delayMin = $("#dtmn").val()
 
@@ -441,11 +697,9 @@ $("#m").on("change", function() {
         app.stage.removeChildren();
     }
 });
-$("#t").on("change", function() {
-    
-
-    soundeffects.setDefaultParameterRange();
-});
+//$("#t").on("change", function() {
+//    soundeffects.setDefaultParameterRangeFromInput();
+//});
 
 const getNormalizedPosition = (pos) => {
 
