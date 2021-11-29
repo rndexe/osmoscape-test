@@ -8,6 +8,9 @@ const app = new PIXI.Application({
 });
 
 const effectData = {
+     "4" : {
+        "invertY" : true
+    },
      "14" : {
         "invertY" : true
     },
