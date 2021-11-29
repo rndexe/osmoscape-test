@@ -656,7 +656,7 @@ class SoundInteractionArea {
         if (this.currentBounds.height > this.currentBounds.width) {
             this.areaContainer.scale.set(app.screen.height/this.currentBounds.height * 0.5)
         } else {
-            this.areaContainer.scale.set(app.screen.width/this.currentBounds.width * 0.75)
+            this.areaContainer.scale.set(app.screen.width/this.currentBounds.width * 0.45)
         }
         this.currentBounds = this.areaContainer.getBounds();
         this.areaContainer.x -= this.currentBounds.x
