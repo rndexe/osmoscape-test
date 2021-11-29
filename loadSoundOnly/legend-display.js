@@ -7,44 +7,61 @@ const app = new PIXI.Application({
     view: canvas
 });
 
+const csvData = {
+    "-1" : [0.75,0.80],
+    "6" : [0.71,0.52,0.83,1,0.31,0.51,0.18,0.46,0.34,0.68,0.87,0.90,0.74,0.74,0.11,0.03],
+    "21" : [0.14,1,0.97,0.23,0,0.43,0.05,0.59],
+    "53" : [0.004,0.02,0,1,0.002,0.82,0.129,0.23,0.124,0.0138],
+    "54" : [0.30,0,0,0.08,0.064,1,0.074,0.30,0.004,0.5,0.29,0.5,0.166,0.019,0.5,0.053,0.19,0,0.016]
+}
 const effectData = {
-     "4" : {
+    "4" : {
         "invertY" : true
     },
-     "5" : {
+    "5" : {
         "invertY" : true
     },
-     "7" : {
+    "7" : {
         "invertY" : true
     },
-     "14" : {
+    "11" : {
         "invertY" : true
     },
-     "15" : {
+    "14" : {
+        "invertY" : true
+    },
+    "15" : {
         "pitchshift" : {
-            "min" : 36,
-            "max" : -12
+            "min" : -12,
+            "max" : 36
         }
     },
-      "16" : {
+    "16" : {
         "pitchshift" : {
-            "min" : 36,
-            "max" : -12
-        }
+            "min" : -12,
+            "max" : 36
+        },
+        invertY : "true"
     },
-       "17" : {
+    "17" : {
         "pitchshift" : {
-            "min" : 36,
-            "max" : -12
-        }
+            "min" : -12,
+            "max" : -36
+        },
     },
-     "19" : {
+    "19" : {
         "invertY" : true
     },
-      "24" : {
+    "20" : {
         "invertY" : true
     },
-   "30" : {
+    "25" : {
+        "invertY" : true
+    },
+    "29" : {
+        "invertY" : true
+    },
+    "30" : {
         "pitchshift" : {
             "min" : -36,
             "max" : 36
@@ -52,7 +69,8 @@ const effectData = {
         "grainsize" : {
             "min" : 0.01,
             "max" : 0.8
-        }
+        },
+        "invertY" : true
     },
     "33" : {
         "pitchshift" : {
@@ -76,7 +94,8 @@ const effectData = {
         "pitchshift" : {
             "min" : -18,
             "max" : 6
-        }
+        },
+        invertY : "true"
     },
     "38" : {
         "pitchshift" : {
@@ -111,7 +130,7 @@ const effectData = {
             "min" : 2,
             "max" : 3
         },
-         "freq" : {
+        "freq" : {
             "min" : 0.3,
             "max" : 1
         },
@@ -145,7 +164,6 @@ const effectData = {
             "min" : 0.01,
             "max" : 0.8
         }
- 
     },
     "44" : {
         "pitchshift" : {
@@ -169,8 +187,8 @@ const effectData = {
             "max" : 12
         }
     },
-     "50" : {
-         "grainsize" : {
+    "50" : {
+        "grainsize" : {
             "min" : 0.01,
             "max" : 0.5
         },
@@ -197,8 +215,8 @@ const effectData = {
         "invertY" : true
     },
     "52" : {
-          "grainsize" : {
-           "min" : 0.01,
+        "grainsize" : {
+            "min" : 0.01,
             "max" : 1
         },
         "detune" : {
@@ -223,8 +241,8 @@ const effectData = {
         }
     },
     "53" : {
-         "grainsize" : {
-           "min" : 0.01,
+        "grainsize" : {
+            "min" : 0.01,
             "max" : 1
         },
         "detune" : {
@@ -250,7 +268,7 @@ const effectData = {
         "invertY" : true
     },
     "55" : {
-          "grainsize" : {
+        "grainsize" : {
             "min" : 0.01,
             "max" : 2
         },
@@ -303,7 +321,7 @@ const effectData = {
         },
         "invertY" : true
     },
-     "60" : {
+    "60" : {
         "grainsize" : {
             "min" : 0.01,
             "max" : 0.5
@@ -330,7 +348,7 @@ const effectData = {
         }
     },
     "63" : {
-         "grainsize" : {
+        "grainsize" : {
             "min" : 0.01,
             "max" : 0.5
         },
@@ -353,10 +371,11 @@ const effectData = {
         "delay" : {
             "min" : 0.01,
             "max" : 0.1
-        }
+        },
+        "invertY" : true
     },
     "64" : {
-         "grainsize" : {
+        "grainsize" : {
             "min" : 0.01,
             "max" : 0.3
         },
@@ -429,10 +448,11 @@ class Molecule {
             //            const local = graphics.toLocal(newPosition)
             //            console.log("global",newPosition)
             soundeffects.crossfade.fade.rampTo(0,1.0)
-            if(soundareas.containsPoint(newPosition)) {
+            let hitArea = soundareas.containsPoint(newPosition)
+            if(hitArea.contains) {
                 soundeffects.crossfade.fade.rampTo(1,1.0)
                 let np = getNormalizedPosition(newPosition)
-                soundeffects.changeParameters(np);
+                soundeffects.changeParameters(np,hitArea.shape);
             }
         }
     }
@@ -447,7 +467,7 @@ class SoundEffects {
         this.grainplayer = new Tone.GrainPlayer({loop : true});
         this.pitchshift = new Tone.PitchShift();
         this.vibrato = new Tone.Vibrato();
-        this.delay = new Tone.Delay();
+        this.delay = new Tone.Delay({maxDelay: 5});
 
         this.makeEffectChain();
     }
@@ -469,7 +489,7 @@ class SoundEffects {
                 this.grainplayer.buffer = currentBuffer; 
                 this.player.buffer = currentBuffer;
                 this.id = num;
-                this.setDefaultParameterRange();
+                this.setDefaultParameterRangeFromInput();
                 this.player.start();
                 this.grainplayer.start();
             }
@@ -527,6 +547,52 @@ class SoundEffects {
         this.loopEndMin = this.grainplayer.buffer.duration/2;
 
     }
+    readDefaultParameterRangeFromInput() {
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("delay")) {
+            $("#dtmn").val(effectData[this.id].delay.min);
+            $("#dtmx").val(effectData[this.id].delay.max);
+        } else {
+            $("#dtmn").val(0.01);
+            $("#dtmx").val(0.6);
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("freq")) {
+            $("#vfmn").val(effectData[this.id].freq.min);
+            $("#vfmx").val(effectData[this.id].freq.max);
+        } else {
+            $("#vfmn").val(0.3);
+            $("#vfmx").val(10);
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("depth")) {
+            $("#vdmn").val(effectData[this.id].depth.min);
+            $("#vdmx").val(effectData[this.id].depth.max);
+        } else {
+            ($("#vdmn").val(0));
+            ($("#vdmx").val(1));
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("pitchshift")) {
+            console.log("effect data value found")
+            $("#pmn").val(effectData[this.id].pitchshift.min);
+            $("#pmx").val(effectData[this.id].pitchshift.max);
+        } else {
+            ($("#pmn").val(-24));
+            ($("#pmx").val(24));
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("detune")) {
+            ($("#dmn").val(effectData[this.id].pitchshift.min));
+            ($("#dmx").val(effectData[this.id].pitchshift.max));
+
+        } else {
+            ($("#dmn").val(-24));
+            ($("#dmx").val(24));
+        }
+        if (effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("grainsize")) {
+            ($("#gsmn").val(effectData[this.id].grainsize.min));
+            ($("#gsmx").val(effectData[this.id].grainsize.max));
+        } else {
+            ($("#gsmn").val(0.01));
+            ($("#gsmx").val(3));
+        }
+    }
     setDefaultParameterRangeFromInput() {
         this.delayRange = ($("#dtmx").val()-$("#dtmn").val())
         this.delayMin = $("#dtmn").val()
@@ -548,11 +614,19 @@ class SoundEffects {
         this.loopEndRange = this.grainplayer.buffer.duration/2;
         this.loopEndMin = this.grainplayer.buffer.duration/2;
     }
-    changeParameters(np) {
+    changeParameters(np,shape) {
 
         if ( effectData.hasOwnProperty(this.id) && effectData[this.id].hasOwnProperty("invertY")){
             np.ny = 1.0 - np.ny;
             np.navg = (np.nx+np.ny)/2;
+        }
+
+        console.log("hitarea hit",shape)
+        if (shape && csvData.hasOwnProperty(this.id)) {
+            console.log(csvData[this.id][shape]);
+            np.ny = csvData[this.id][shape];
+            np.nx = csvData[this.id][shape];
+            np.navg = csvData[this.id][shape];
         }
         this.delay.delayTime.rampTo(np.navg * this.delayRange + this.delayMin*1,0.1);
 
@@ -632,10 +706,10 @@ class SoundInteractionArea {
         for (const shape in shapeArray) {
             if (shapeArray[shape].containsPoint(pos)){
                 contains = true;
-                return contains
+                return {"contains":true,"shape":shape}
             }
         }
-        return contains
+        return {"contains":false}
     }
 }
 
@@ -698,6 +772,7 @@ $("#m").on("change", function() {
             app.stage.addChild(molecule.moleculeContainer);
             soundareas.setNew(i,1,50);
             app.stage.addChild(soundareas.areaContainer)
+            soundeffects.readDefaultParameterRangeFromInput();
         } else {
             $("p").text(i + datasets[i].title + " has no popdimensions");
         }
@@ -706,9 +781,9 @@ $("#m").on("change", function() {
         app.stage.removeChildren();
     }
 });
-//$("#t").on("change", function() {
-//    soundeffects.setDefaultParameterRangeFromInput();
-//});
+$("#t").on("change", function() {
+    soundeffects.setDefaultParameterRangeFromInput();
+});
 
 const getNormalizedPosition = (pos) => {
 
