@@ -464,6 +464,7 @@ class SoundEffects {
         Tone.setContext(this.context);
         this.crossfade = new Tone.CrossFade({fade : 0});
         this.player = new Tone.Player({loop : true});
+        this.baseplayer = new Tone.Player({loop : true}).toDestination();
         this.grainplayer = new Tone.GrainPlayer({loop : true});
         this.pitchshift = new Tone.PitchShift();
         this.vibrato = new Tone.Vibrato();
@@ -494,7 +495,17 @@ class SoundEffects {
                 this.grainplayer.start();
             }
         }
-        ); 
+        );
+
+            let chapterName = (datasets[num].ch.slice(-1));
+            console.log("Chapter:",chapterName)
+        const baseBuffer = new Tone.ToneAudioBuffer({
+            url:   "../_data/audio/tracks/Baseline_"+chapterName+".mp3",
+            onload: () => {
+                this.baseplayer.buffer = baseBuffer; 
+                this.baseplayer.start();
+            }
+        })
     }
     setDefaultParameterRange() {
 
@@ -783,6 +794,14 @@ $("#m").on("change", function() {
 });
 $("#t").on("change", function() {
     soundeffects.setDefaultParameterRangeFromInput();
+});
+$("#bv").on("input", function() {
+    soundeffects.baseplayer.volume.value= $("#bv").val();
+    //soundeffects.baseplayer.restart();
+});
+$("#lv").on("input", function() {
+    soundeffects.player.volume.value= $("#lv").val();
+    soundeffects.grainplayer.volume.value= $("#lv").val();
 });
 
 const getNormalizedPosition = (pos) => {
