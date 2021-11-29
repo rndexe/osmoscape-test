@@ -14,6 +14,9 @@ const effectData = {
      "5" : {
         "invertY" : true
     },
+     "7" : {
+        "invertY" : true
+    },
      "14" : {
         "invertY" : true
     },
