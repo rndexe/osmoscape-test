@@ -801,8 +801,7 @@ $("#bv").on("input", function() {
     soundeffects.baseplayer.volume.value= $("#bv").val();
 });
 $("#mute").on("change", function() {
-    soundeffects.baseplayer.mute= $("#mute").val();
-    console.log($("#mute").val());
+    soundeffects.baseplayer.mute= $("#mute").is(":checked");
 });
 $("#lv").on("input", function() {
     soundeffects.player.volume.value= $("#lv").val();
