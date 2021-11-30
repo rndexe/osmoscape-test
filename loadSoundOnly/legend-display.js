@@ -13,7 +13,7 @@ const csvData = {
     "21" : [0.14,1,0.97,0.23,0,0.43,0.05,0.59],
     "53" : [0.004,0.02,0,1,0.002,0.82,0.129,0.23,0.124,0.0138],
     "54" : [0.30,0,0,0.08,0.064,1,0.074,0.30,0.004,0.5,0.29,0.5,0.166,0.019,0.5,0.053,0.19,0,0.016]
-}
+};
 const effectData = {
     "4" : {
         "invertY" : true
@@ -40,8 +40,7 @@ const effectData = {
         "pitchshift" : {
             "min" : -12,
             "max" : 36
-        },
-        invertY : "true"
+        }
     },
     "17" : {
         "pitchshift" : {
@@ -497,8 +496,8 @@ class SoundEffects {
         }
         );
 
-            let chapterName = (datasets[num].ch.slice(-1));
-            console.log("Chapter:",chapterName)
+        let chapterName = (datasets[num].ch.slice(-1));
+        console.log("Chapter:",chapterName)
         const baseBuffer = new Tone.ToneAudioBuffer({
             url:   "../_data/audio/tracks/Baseline_"+chapterName+".mp3",
             onload: () => {
@@ -632,12 +631,16 @@ class SoundEffects {
             np.navg = (np.nx+np.ny)/2;
         }
 
-        console.log("hitarea hit",shape)
+        console.log("hello thi is the dataset i'm playing",this.id)
         if (shape && csvData.hasOwnProperty(this.id)) {
             console.log(csvData[this.id][shape]);
             np.ny = csvData[this.id][shape];
             np.nx = csvData[this.id][shape];
             np.navg = csvData[this.id][shape];
+        } else if (this.id === "1") {
+            np.navg = (4*np.nx + np.ny)/5;
+            np.nx = np.navg;
+            np.ny = np.navg;
         }
         this.delay.delayTime.rampTo(np.navg * this.delayRange + this.delayMin*1,0.1);
 
@@ -709,7 +712,6 @@ class SoundInteractionArea {
             }, new PIXI.Graphics());
             this.areaContainer.addChild(s)
         }
-
     }
     containsPoint(pos) {
         let shapeArray = this.areaContainer.children; 
