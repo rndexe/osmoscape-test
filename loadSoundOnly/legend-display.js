@@ -676,7 +676,7 @@ class SoundInteractionArea {
         this.areaContainer.x -= this.currentBounds.x
         this.areaContainer.y -= this.currentBounds.y
         this.areaContainer.y += 100
-        this.areaContainer.x += 200
+        this.areaContainer.x += 300
 
 
         this.currentBounds = this.areaContainer.getBounds();
@@ -799,7 +799,10 @@ $("#t").on("change", function() {
 });
 $("#bv").on("input", function() {
     soundeffects.baseplayer.volume.value= $("#bv").val();
-    //soundeffects.baseplayer.restart();
+});
+$("#mute").on("change", function() {
+    soundeffects.baseplayer.mute= $("#mute").val();
+    console.log($("#mute").val());
 });
 $("#lv").on("input", function() {
     soundeffects.player.volume.value= $("#lv").val();
