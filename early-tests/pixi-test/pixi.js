@@ -2,34 +2,72 @@ const app = new PIXI.Application({
     width: window.innerWidth, height: window.innerHeight, backgroundColor: 0xb3ced5, resolution: window.devicePixelRatio || 1,
     antialias: true,
 });
+
+const player = new Tone.Player ({
+    url : "../../_data/audio/loops/-1.mp3",
+    loop: true,
+    onload: () => {
+        player.start();
+        player.connect(fft)
+    }
+}).toDestination();
+
+const fft = new Tone.FFT ({
+    size: 16
+});
+
+let tick = 0;
+
 document.body.appendChild(app.view);
 gsap.registerPlugin(PixiPlugin);
-//const legendTexture = new PIXI.Texture.from('legend.svg')
-//const legend = new PIXI.Sprite(legendTexture)
 const moleculeContainer = new PIXI.Container();
-//const legendContainer = new PIXI.Container();
-//legendContainer.addChild(legend);
 moleculeContainer.interactive = true;
 moleculeContainer.buttonMode = true;
-//app.stage.addChild(legendContainer);
 app.stage.addChild(moleculeContainer);
 
 // Create a new texture
 const molecule = new PIXI.Graphics();
-const boundary = new PIXI.Graphics();
 molecule.lineStyle(1, 0xb67339, 1);
 molecule.beginFill(0xeaf1f3, 0.53);
-molecule.drawCircle(0, 0, 75);
+molecule.drawCircle(0, 0, 137.5);
 molecule.endFill();
-molecule.drawCircle(0, 0, 25);
+molecule.drawCircle(0, 0, 132.5);
+molecule.drawCircle(0, 0, 127.5);
+molecule.drawCircle(0, 0, 122.5);
+molecule.drawCircle(0, 0, 82.44);
+molecule.drawCircle(0, 0, 64);
+molecule.drawCircle(0, 0, 42.8);
+molecule.drawCircle(0, 0, 38.6);
+molecule.drawCircle(0, 0, 27.4);
+molecule.moveTo(97.22,-97.22);
+molecule.lineTo(97.22+48.5,-97.22-48.5);
+molecule.moveTo(97.22,97.22);
+molecule.lineTo(97.22+48.5,97.22+48.5);
+molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 37.5);
+molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 37.5);
+//molecule.moveTo(53, 53);
+//molecule.lineTo(77,77);
+molecule.lineStyle(1, 0xFFFFFF, 1);
+molecule.drawCircle(0, 0, 76.2);
+molecule.drawCircle(0, 0, 70.0);
+molecule.drawCircle(0, 0, 57.8);
+molecule.drawCircle(0, 0, 31.3);
+molecule.drawCircle(0, 0, 20.3);
+molecule.drawCircle(0, 0, 12.8);
+molecule.drawCircle(0, 0, 8.2);
+molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 12.5);
+molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 12.5);
+
+const boundary = new PIXI.Graphics();
 boundary.lineStyle(3, 0xb67339, 1);
-boundary.drawCircle(0, 0, 75);
+boundary.drawCircle(0, 0, 137.5);
+
 moleculeContainer.addChild(boundary);
 moleculeContainer.addChild(molecule);
-        moleculeContainer.on('pointerdown', onDragStart)
-        .on('pointerup', onDragEnd)
-        .on('pointerupoutside', onDragEnd)
-        .on('pointermove', onDragMove);
+moleculeContainer.on('pointerdown', onDragStart)
+    .on('pointerup', onDragEnd)
+    .on('pointerupoutside', onDragEnd)
+    .on('pointermove', onDragMove);
 
 gsap.to(boundary.scale, {
     x: 1.2, y: 1.2, duration: 1, repeat: -1, ease: "back"
@@ -39,72 +77,20 @@ gsap.to(boundary, {
 });
 // Move container to the center
 
-//moleculeContainer.pivot.x = moleculeContainer.width / 2;
-//moleculeContainer.pivot.y = moleculeContainer.height / 2;
-//legend.anchor.set(0.5);
-//legend.scale.set(1.2);
-//legend.interactive = true;
-//legend.hitArea = new PIXI.Circle(0,-30,150)
-//const hitareagraphics = new PIXI.Graphics().lineStyle(1,0xFFFFFF,1).drawCircle(0,-30,150)
-//legend.addChild(hitareagraphics)
 moleculeContainer.x = app.screen.width / 2;
 moleculeContainer.y = app.screen.height / 2;
-//legendContainer.x = app.screen.width / 2;
-//legendContainer.y = app.screen.height / 2;
 
-/*const sprites = new PIXI.ParticleContainer(10, {
-    scale: true,
-    position: true,
-    rotation: true,
-    uvs: true,
-    alpha: true,
-});*/
-//moleculeContainer.addChild(sprites);
 
-const particles = [];
-    const dudeG = new PIXI.Graphics()
-        dudeG.lineStyle(1,0xFFFFFF,1).drawRect(0,0,10,10);
+const fftVisualizer= new PIXI.Graphics();
 
-    const tex = app.renderer.generateTexture(dudeG)
-for (let i = 0; i < 10; i++) {
-    // create a new Sprite
-    // set the anchor point so the texture is centerd on the sprite
-    const dude = new PIXI.Sprite(tex)
-
-    dude.anchor.set(0.5);
-
-    // different maggots, different sizes
-    dude.scale.set(0.8 + Math.random() * 0.3);
-
-    // scatter them all
-    dude.x = Math.random() * moleculeContainer.width;
-    dude.y = Math.random() * moleculeContainer.height;
-
-//    dude.tint = Math.random() * 0x808080;
-
-    // create a random direction in radians
-    dude.direction = Math.random() * Math.PI * 2;
-
-    // this number will be used to modify the direction of the sprite over time
-    dude.turningSpeed = Math.random() - 0.8;
-
-    // create a random speed between 0 - 2, and these maggots are slooww
-    dude.speed = (2 + Math.random() * 2) * 0.2;
-
-    dude.offset = Math.random() * 100;
-
-    // finally we push the dude into the maggots array so it it can be easily accessed later
-    particles.push(dude);
-
-    //sprites.addChild(dude);
-}
-
+app.stage.addChild(fftVisualizer);
 function onDragStart(event) {
     // store a reference to the data
     // the reason for this is because of multitouch
     // we want to track the movement of this particular touch
     this.data = event.data;
     this.dragging = true;
+
 }
 
 function onDragEnd() {
@@ -119,29 +105,62 @@ function onDragMove() {
         const newPosition = this.data.getLocalPosition(this.parent);
         this.x = newPosition.x;
         this.y = newPosition.y;
-        //console.log(newPosition)
-    //    const local = legend.toLocal(newPosition)
-    //    if(legend.hitArea.contains(local.x,local.y)) {
-    //        console.log("molecule inside hitest")
-    //    }
     }
 }
 
-let tick = 0;
+app.ticker.speed = 2
 
 app.ticker.add(() => {
-    // iterate through the sprites and update their position
-    /*for (let i = 0; i < particles.length; i++) {
-        const dude = particles[i];
-        dude.scale.y = 0.95 + Math.sin(tick + dude.offset) * 0.05;
-        dude.direction += dude.turningSpeed * 0.01;
-        dude.x += Math.sin(dude.direction) * (dude.speed * dude.scale.y);
-        dude.y += Math.cos(dude.direction) * (dude.speed * dude.scale.y);
-        dude.rotation = -dude.direction + Math.PI;
 
+    if(player.state ==="started") {
+        fftVisualizer.clear();
+        const fftData = fft.getValue();
+
+        const ampData = fftData.map(x => Math.min(100,Math.floor(Math.pow(2,Math.abs(x)/20))));
+
+        fftVisualizer.lineStyle(1,0xFFFFFF,1)
+        console.log(ampData)
+        //
+
+        ampData.forEach((x,i) => {
+            if(i== 10)
+            fftVisualizer.drawCircle(0, 0, x*10);
+        });
     }
 
-    // increment the ticker
-    tick += 0.1;*/
+    molecule.clear();
+molecule.lineStyle(1, 0xb67339, 1);
+molecule.beginFill(0xeaf1f3, 0.53);
+molecule.drawCircle(0, 0, 137.5*Math.sin(tick));
+molecule.endFill();
+molecule.drawCircle(0, 0, 132.5*Math.sin(tick));
+molecule.drawCircle(0, 0, 127.5);
+molecule.drawCircle(0, 0, 122.5);
+molecule.drawCircle(0, 0, 82.44);
+molecule.drawCircle(0, 0, 64);
+molecule.drawCircle(0, 0, 42.8);
+molecule.drawCircle(0, 0, 38.6);
+molecule.drawCircle(0, 0, 27.4);
+molecule.moveTo(97.22,-97.22);
+molecule.lineTo(97.22+48.5,-97.22-48.5);
+molecule.moveTo(97.22,97.22);
+molecule.lineTo(97.22+48.5,97.22+48.5);
+molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 37.5);
+molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 37.5);
+//molecule.moveTo(53, 53);
+//molecule.lineTo(77,77);
+molecule.lineStyle(1, 0xFFFFFF, 1);
+molecule.drawCircle(0, 0, 76.2);
+molecule.drawCircle(0, 0, 70.0);
+molecule.drawCircle(0, 0, 57.8);
+molecule.drawCircle(0, 0, 31.3);
+molecule.drawCircle(0, 0, 20.3);
+molecule.drawCircle(0, 0, 12.8);
+molecule.drawCircle(0, 0, 8.2);
+molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 12.5);
+molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 12.5);
 
+
+    tick += 0.02;
 });
+
