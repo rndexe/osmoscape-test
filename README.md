@@ -2,7 +2,7 @@ Testing out features for Osmoscape by rndexe
 
 Instagram : **rnd.exe**
 
-# (Echoes of the Osmotic Landscape)
+### (Echoes of the Osmotic Landscape)
 
 Water flows from the sky to the mountains, down the rivers, out to sea and up into the atmosphere where it is breathed in and merges with the human body. We are an assemblage of water packets, slightly salty, like the sea we came from. As Loren Eiseley put it, we’re a “concentration” of water, “that indescribable and liquid brew which is compounded in varying proportions of salt and sun and time,” and on the day we’re born, we’re at high tide. After that, very quietly, the sea within us ebbs and ebbs, and as it goes … so do we
 
