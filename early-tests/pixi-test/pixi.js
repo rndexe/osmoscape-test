@@ -69,12 +69,12 @@ moleculeContainer.on('pointerdown', onDragStart)
     .on('pointerupoutside', onDragEnd)
     .on('pointermove', onDragMove);
 
-gsap.to(boundary.scale, {
-    x: 1.2, y: 1.2, duration: 1, repeat: -1, ease: "back"
-});
-gsap.to(boundary, {
-    alpha: 0, duration: 1, repeat: -1, ease: "back"
-});
+//gsap.to(boundary.scale, {
+//    x: 1.2, y: 1.2, duration: 1, repeat: -1, ease: "back"
+//});
+//gsap.to(boundary, {
+//    alpha: 0, duration: 1, repeat: -1, ease: "back"
+//});
 // Move container to the center
 
 moleculeContainer.x = app.screen.width / 2;
@@ -127,39 +127,6 @@ app.ticker.add(() => {
             fftVisualizer.drawCircle(0, 0, x*10);
         });
     }
-
-    molecule.clear();
-molecule.lineStyle(1, 0xb67339, 1);
-molecule.beginFill(0xeaf1f3, 0.53);
-molecule.drawCircle(0, 0, 137.5*Math.sin(tick));
-molecule.endFill();
-molecule.drawCircle(0, 0, 132.5*Math.sin(tick));
-molecule.drawCircle(0, 0, 127.5);
-molecule.drawCircle(0, 0, 122.5);
-molecule.drawCircle(0, 0, 82.44);
-molecule.drawCircle(0, 0, 64);
-molecule.drawCircle(0, 0, 42.8);
-molecule.drawCircle(0, 0, 38.6);
-molecule.drawCircle(0, 0, 27.4);
-molecule.moveTo(97.22,-97.22);
-molecule.lineTo(97.22+48.5,-97.22-48.5);
-molecule.moveTo(97.22,97.22);
-molecule.lineTo(97.22+48.5,97.22+48.5);
-molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 37.5);
-molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 37.5);
-//molecule.moveTo(53, 53);
-//molecule.lineTo(77,77);
-molecule.lineStyle(1, 0xFFFFFF, 1);
-molecule.drawCircle(0, 0, 76.2);
-molecule.drawCircle(0, 0, 70.0);
-molecule.drawCircle(0, 0, 57.8);
-molecule.drawCircle(0, 0, 31.3);
-molecule.drawCircle(0, 0, 20.3);
-molecule.drawCircle(0, 0, 12.8);
-molecule.drawCircle(0, 0, 8.2);
-molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 12.5);
-molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 12.5);
-
 
     tick += 0.02;
 });

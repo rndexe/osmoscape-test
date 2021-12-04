@@ -1,3 +1,4 @@
+'use strict';
 const app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -69,6 +70,9 @@ const effectData = {
             "min" : 0.01,
             "max" : 0.8
         },
+        "invertY" : true
+    },
+    "32" : {
         "invertY" : true
     },
     "33" : {
@@ -400,6 +404,9 @@ const effectData = {
         }
     }
 }
+
+
+
 let datasets,mergedSoundAreas,mergedLegends;
 let mainScrollScale;
 let mainScrollWidth;
@@ -411,17 +418,54 @@ class Molecule {
         this.moleculeContainer.interactive = true;
         this.moleculeContainer.buttonMode = true;
         this.molecule = new PIXI.Graphics()
-            .lineStyle(1, 0xb67339, 1)
-            .beginFill(0xeaf1f3, 0.53)
-            .drawCircle(0, 0, 75)
-            .endFill()
-            .drawCircle(0, 0, 25)
+        //            .lineStyle(1, 0xb67339, 1)
+        this.molecule.beginFill(0xeaf1f3, 0.05)
+        //            .drawCircle(0, 0, 75)
+        //            .endFill()
+        //            .drawCircle(0, 0, 25)
+        this.molecule.lineStyle(2, 0xb67339, 1);
+        this.molecule.drawCircle(0, 0, 137.5);
+        this.molecule.endFill();
+        this.molecule.drawCircle(0, 0, 132.5);
+        this.molecule.drawCircle(0, 0, 127.5);
+        this.molecule.drawCircle(0, 0, 122.5);
+        this.molecule.moveTo(97.22,-97.22);
+        this.molecule.lineTo(97.22+48.5,-97.22-48.5);
+        this.molecule.moveTo(97.22,97.22);
+        this.molecule.lineTo(97.22+48.5,97.22+48.5);
+        this.molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 37.5);
+        this.molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 37.5);
+        this.molecule.lineStyle(2, 0xFFFFFF, 1);
+        this.molecule.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 12.5);
+        this.molecule.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 12.5);
+       
+        this.shadow = new PIXI.Graphics();
+        this.shadow.lineStyle(5, 0x121212, 0.5);
+        this.shadow.drawCircle(0, 0, 137.5);
+        this.shadow.moveTo(97.22,-97.22);
+        this.shadow.lineTo(97.22+48.5,-97.22-48.5);
+        this.shadow.moveTo(97.22,97.22);
+        this.shadow.lineTo(97.22+48.5,97.22+48.5);
+        this.shadow.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 37.5);
+        this.shadow.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 37.5);
+        this.shadow.lineStyle(2, 0xFFFFFF, 1);
+        this.shadow.drawCircle(97.22+37.5+37.5, -97.22-37.5-37.5, 12.5);
+        this.shadow.drawCircle(97.22+37.5+37.5, +97.22+37.5+37.5, 12.5);
+        //this.moleculeContainer.filters = [new PIXI.filters.DropShadowFilter()];
+        this.shadow.filters = [new PIXI.filters.BlurFilter()];
+        this.shadow.x += 5;
+        this.shadow.y += 5;
+        this.moleculeContainer.scale.set(0.75,0.75);
         this.moleculeContainer.addChild(this.molecule);
+        this.moleculeContainer.addChild(this.shadow);
         this.moleculeContainer.on('pointerdown', this.onDragStart)
             .on('pointerup', this.onDragEnd)
             .on('pointerupoutside', this.onDragEnd)
             .on('pointermove', this.onDragMove);
 
+        this.fftVisualizer = new PIXI.Graphics();
+        this.fftVisualizer.lineStyle(1,0xFFFFFF,1)
+        this.moleculeContainer.addChild(this.fftVisualizer);
         this.moleculeContainer.x = app.screen.width / 2;
         this.moleculeContainer.y = app.screen.height / 2;
         app.stage.addChild(this.moleculeContainer);
@@ -468,6 +512,11 @@ class SoundEffects {
         this.pitchshift = new Tone.PitchShift();
         this.vibrato = new Tone.Vibrato();
         this.delay = new Tone.Delay({maxDelay: 5});
+this.fft = new Tone.FFT ({
+    size: 16,
+    smoothing : 0.75,
+    normalRange : false
+});
 
         this.makeEffectChain();
     }
@@ -480,6 +529,7 @@ class SoundEffects {
         this.pitchshift.connect(this.crossfade.b);
 
         this.crossfade.connect(Tone.getDestination());
+        Tone.getDestination().connect(this.fft);
     }
     setNewBuffer(num) {
         const currentBuffer = new Tone.ToneAudioBuffer({
@@ -716,8 +766,24 @@ class SoundInteractionArea {
     containsPoint(pos) {
         let shapeArray = this.areaContainer.children; 
         let contains = false;
+        let pos1 =pos.clone();
+        pos1.x -=5;
+        pos1.y -=5;
+        let pos2 =pos.clone();
+        pos2.x +=5;
+        pos2.y -=5;
+        let pos3 =pos.clone();
+        pos3.x -=5;
+        pos3.y +=5;
+        let pos4 =pos.clone();
+        pos4.x +=5;
+        pos4.y +=5;
         for (const shape in shapeArray) {
-            if (shapeArray[shape].containsPoint(pos)){
+            if (shapeArray[shape].containsPoint(pos1) || 
+                shapeArray[shape].containsPoint(pos2) ||
+                shapeArray[shape].containsPoint(pos3) ||
+                shapeArray[shape].containsPoint(pos4)
+            ) {
                 contains = true;
                 return {"contains":true,"shape":shape}
             }
@@ -813,8 +879,9 @@ const getNormalizedPosition = (pos) => {
     let np = {};
     np.x = pos.x - soundareas.currentBounds.x;
     np.y = pos.y - soundareas.currentBounds.y;
-    np.nx = np.x/soundareas.currentBounds.width;
-    np.ny = np.y/soundareas.currentBounds.height;
+    np.nx = Math.abs(np.x/soundareas.currentBounds.width);
+    np.ny = Math.abs(np.y/soundareas.currentBounds.height);
+
     np.navg = (np.nx+np.ny)/2;
     //    console.log(np);
     return np;
@@ -861,4 +928,22 @@ const showLegend = (number,legend,dim) => {
     legend.y -= (_y - app.screen.height/2 + _height/2)
 }
 
+app.ticker.speed = 0.5
+app.ticker.add(() => {
+
+        molecule.fftVisualizer.clear();
+        molecule.fftVisualizer.lineStyle(1,0xFFFFFF,1)
+
+        const fftData = soundeffects.fft.getValue();
+        const ampData = fftData.map(x => {
+            let y= (x + 140);
+            return y
+        });
+    console.log(ampData)    
+    ampData.forEach((x,i) => {
+            molecule.fftVisualizer.drawCircle(0, 0, x);
+//            if ( i > 4 && i < 13)
+        });
+    //tick += 0.02;
+});
 
